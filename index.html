@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATLAS OS | Execution Shell</title>
+  <style>
+    body, html {
+      background-color: #050c19;
+      color: #f0f4fa;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    .shell {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+    .limited-bar {
+      background: linear-gradient(90deg, #2bfafc 8%, #298cff 95%);
+      color: #101a25;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 1rem;
+      border-radius: 0 0 18px 18px;
+      box-shadow: 0 2px 24px #23e4e722;
+      margin-bottom: 2.5rem;
+    }
+    h1 {
+      color: #38ebfc;
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 22px #37eafc55;
+    }
+    .desc {
+      font-size: 1.15rem;
+      color: #a8c0d9;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+    .why {
+      text-align: left;
+      margin: 3rem auto 4rem;
+      max-width: 720px;
+    }
+    .why h2 {
+      color: #00f0ff;
+      font-size: 1.7rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .why li {
+      margin-bottom: 0.75rem;
+    }
+    .plans {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    .plan {
+      border: 2px solid #23e4e7;
+      border-radius: 16px;
+      padding: 1.5rem;
+      background: #0a1624;
+      box-shadow: 0 0 12px #2bfafc33;
+    }
+    .plan h3 {
+      font-size: 1.5rem;
+      color: #00f0ff;
+      margin-bottom: 0.5rem;
+    }
+    .plan .price {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .plan .price del {
+      color: #ff9494;
+      margin-right: 0.5rem;
+    }
+    .plan ul {
+      text-align: left;
+      padding-left: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .plan a.button {
+      display: inline-block;
+      background: linear-gradient(to right, #2bfafc, #298cff);
+      color: #101a25;
+      font-weight: bold;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    .contact {
+      margin-top: 2rem;
+      font-size: 1rem;
+    }
+    .contact a {
+      color: #38ebfc;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #666f7d;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="limited-bar">
+      ⚡ Limited Access: <span id="countdown">23h 59m left to lock pricing</span>
+      <noscript><span>Offer expires soon. Enable JavaScript to see countdown.</span></noscript>
+    </div>
+
+    <h1>ATLAS OS</h1>
+    <p class="desc">Welcome to your execution system shell. Choose your operational layer below.</p>
+
+    <div class="plans">
+      <div class="plan">
+        <h3>STARTER PLAN</h3>
+        <p class="price"><del>$19.00</del> $9.00/mo</p>
+        <ul>
+          <li>✓ SmartStack™ day builder</li>
+          <li>✓ Focus Dashboard</li>
+          <li>✓ Neuro-profile sync</li>
+        </ul>
+        <a class="button" href="https://buy.stripe.com/test_starter_plan">Buy Starter</a>
+      </div>
+
+      <div class="plan">
+        <h3>PRO PLAN</h3>
+        <p class="price"><del>$39.00</del> $29.00/mo</p>
+        <ul>
+          <li>✓ Autonomous OS execution</li>
+          <li>✓ SmartStack workflows</li>
+          <li>✓ Priority support</li>
+          <li>✓ Custom automation builder</li>
+          <li>✓ Realtime OS analytics</li>
+        </ul>
+        <a class="button" href="https://buy.stripe.com/test_pro_plan">Buy Pro</a>
+      </div>
+    </div>
+
+    <div class="why">
+      <h2>WHY ATLAS OS?</h2>
+      <ul>
+        <li>› Alien-grade automation: hyper-adaptive workflows, zero manual lag.</li>
+        <li>› Live stack mutation: evolve your OS logic in real time—total control, zero downtime.</li>
+        <li>› Neuro-synced AI: aligns with operator state, adapts to focus, forecasts leverage.</li>
+        <li>› Distributed AI orchestration: instant SmartStack chaining, recursive feedback, future ops.</li>
+        <li>› Public/private OS nodes: encrypted, resilient, and globally scalable.</li>
+        <li>› Signal relay: proactive automations react to the world—no scripts, just intelligence.</li>
+        <li>› Atlas OS is not software—it's a sovereign, evolving execution engine.</li>
+      </ul>
+    </div>
+
+    <div class="contact">
+      <p>Contact Command<br />
+      <a href="mailto:admin@atlasos.tech">admin@atlasos.tech</a><br />
+      Based in Tulsa, OK</p>
+    </div>
+
+    <footer>© 2025 Atlas OS. Engineered by Overseer.exe</footer>
+  </div>
+
+  <script>
+    const countdownEl = document.getElementById('countdown');
+    const target = new Date();
+    target.setHours(target.getHours() + 23, target.getMinutes() + 59, 0, 0);
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = target - now;
+      if (diff <= 0) {
+        countdownEl.textContent = 'Offer expired';
+        return;
+      }
+      const hrs = Math.floor(diff / 1000 / 60 / 60);
+      const mins = Math.floor((diff / 1000 / 60) % 60);
+      countdownEl.textContent = `${hrs}h ${mins}m left to lock pricing`;
+      requestAnimationFrame(updateCountdown);
+    }
+
+    updateCountdown();
+  </script>
+</body>
+</html>
