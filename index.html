@@ -2,193 +2,256 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ATLAS OS | Execution Shell</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Atlas OS | Execution Shell</title>
+  <meta name="description" content="Atlas OS — AI-powered execution engine for startup-scale automation and control.">
+  <link rel="icon" type="image/png" href="https://atlasos.tech/assets/logo-globe.png">
   <style>
-    body, html {
-      background-color: #050c19;
+    body {
+      background: linear-gradient(135deg, #181e28 0%, #243a4f 40%, #10161c 100%);
       color: #f0f4fa;
-      margin: 0;
-      padding: 0;
       font-family: 'Inter', system-ui, sans-serif;
-    }
-    .shell {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
       text-align: center;
+      margin: 0; padding: 0; min-height: 100vh;
     }
-    .limited-bar {
-      background: linear-gradient(90deg, #2bfafc 8%, #298cff 95%);
-      color: #101a25;
-      font-size: 1.1rem;
-      font-weight: 700;
-      padding: 1rem;
-      border-radius: 0 0 18px 18px;
-      box-shadow: 0 2px 24px #23e4e722;
-      margin-bottom: 2.5rem;
+    .limited-access {
+      background: linear-gradient(90deg,#2bfafc,#298cff);
+      color: #101a25; font-weight:800; font-size:1.11rem;
+      padding:1.08rem 0; border-radius:0 0 19px 19px; max-width:660px;
+      margin:0 auto 2.5rem; box-shadow:0 2px 24px #23e4e722;
+      display:flex; align-items:center; justify-content:center; gap:0.6rem;
+      letter-spacing:0.015em;
     }
-    h1 {
-      color: #38ebfc;
-      font-size: 2.5rem;
-      font-weight: 900;
-      margin-bottom: 0.5rem;
-      text-shadow: 0 0 22px #37eafc55;
+    .limited-access .timer { font-weight:700; color:#01587e; margin-left:0.5rem; }
+    .logo { margin:2.3rem 0 0.6rem 0; }
+    .logo img { width:152px; max-width:96vw; height:auto; filter:drop-shadow(0 0 26px #38ebfcbb); animation:glow 2.2s infinite alternate;}
+    @keyframes glow { from{filter:drop-shadow(0 0 11px #38ebfc55);} to{filter:drop-shadow(0 0 33px #38ebfcff);} }
+    h1 { font-size:2.45rem; margin-bottom:0.63rem; color:#38ebfc; letter-spacing:0.14em; font-weight:900; }
+    p.subhead { font-size:1.11rem; margin-bottom:2.2rem; color:#b7c3d0; }
+    .plans-wrap { display:flex; flex-direction:column; gap:1.77rem; max-width:900px; margin:0 auto 1.22rem auto; }
+    .plan {
+      border:2.7px solid #1a98fc60; border-radius:22px; padding:2.15rem 1.17rem 1.85rem 1.17rem;
+      background:linear-gradient(108deg,rgba(24,36,54,0.98) 82%, #202c42 109%);
+      box-shadow:0 3px 34px #008cff26,0 2px 12px #10163033;
+      max-width:590px; margin:0 auto; transition:box-shadow .19s, border-color .22s; position:relative; overflow:hidden;
     }
-    .desc {
-      font-size: 1.15rem;
-      color: #a8c0d9;
-      max-width: 700px;
-      margin: 0 auto 2rem;
+    .plan:hover { box-shadow:0 5px 34px #2bfafc2d,0 1px 14px #008cff21; border-color:#2bfafc; }
+    .plan.elite {
+      border:3.5px solid #ffd75b;
+      background:linear-gradient(97deg,#23253b 78%,#463913 111%);
+      box-shadow:0 4px 26px #ffd75b3d;
     }
-    .why {
-      text-align: left;
-      margin: 3rem auto 4rem;
-      max-width: 720px;
+    .plan.founder {
+      border:3.5px solid #21f7ff;
+      background:linear-gradient(100deg,#101a26 75%,#001e22 120%);
+      box-shadow:0 4px 34px #2bfafc3d;
     }
-    .why h2 {
-      color: #00f0ff;
-      font-size: 1.7rem;
-      margin-bottom: 1rem;
+    .plan h2 { color:#23e6ff; font-size:1.36rem; margin-bottom:0.38rem; letter-spacing:0.07em; font-weight:900;}
+    .plan.elite h2 { color:#ffd75b; }
+    .plan.founder h2 { color:#21f7ff; letter-spacing:0.09em;}
+    .price { font-size:1.19rem; margin-bottom:1.13rem; font-weight:700;}
+    .price del { color:#ff5a5a; margin-right:0.47rem; }
+    ul { list-style-type:none; padding:0; margin-bottom:1.15rem; text-align:left; display:inline-block;}
+    ul li { font-size:1.09rem; margin-bottom:0.11rem; font-weight:500;}
+    ul li::before { content:'✓'; color:#2bfafc; margin-right:0.46rem; font-weight:900;}
+    .plan.elite ul li::before { color:#ffd75b;}
+    .plan.founder ul li::before { color:#21f7ff;}
+    .plan-btn {
+      background:linear-gradient(90deg,#2bfafc 35%,#298cff 98%);
+      border:none; border-radius:13px; padding:1.09rem 2.19rem;
+      color:#101a25; font-weight:900; font-size:1.18rem; letter-spacing:0.03em;
+      cursor:pointer; margin-top:0.19rem; margin-bottom:0.37rem;
+      box-shadow:0 2px 10px #26dfff55; transition:filter 0.15s, box-shadow 0.19s;
+      width: 91%; max-width: 340px; display: inline-block; text-align: center;
+    }
+    .plan.elite .plan-btn {
+      background:linear-gradient(92deg,#ffd75b 10%,#ffe7a4 94%);
+      color:#432e06; box-shadow:0 2px 18px #ffd75b22; border:2px solid #ffd75b;
+    }
+    .plan.founder .plan-btn {
+      background:linear-gradient(93deg,#21f7ff 20%,#20ebfc 90%);
+      color:#021920; border:2px solid #21f7ff;
+      box-shadow:0 2px 22px #21f7ff44;
+    }
+    .plan-btn:hover { filter:brightness(1.13); box-shadow:0 2px 34px #2bfafc99; }
+    .founder-form {
+      margin-top: 1.5rem;
       text-align: center;
-    }
-    .why li {
-      margin-bottom: 0.75rem;
-    }
-    .plans {
+      background: #1d2533;
+      padding: 1.1rem 1rem 1.2rem 1rem;
+      border-radius: 13px;
+      box-shadow: 0 2px 20px #21f7ff12;
+      border: 1.3px solid #21f7ff66;
       display: flex;
       flex-direction: column;
-      gap: 2rem;
-      margin-bottom: 3rem;
+      gap: 0.8rem;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    .plan {
-      border: 2px solid #23e4e7;
-      border-radius: 16px;
-      padding: 1.5rem;
-      background: #0a1624;
-      box-shadow: 0 0 12px #2bfafc33;
-    }
-    .plan h3 {
-      font-size: 1.5rem;
-      color: #00f0ff;
-      margin-bottom: 0.5rem;
-    }
-    .plan .price {
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-    }
-    .plan .price del {
-      color: #ff9494;
-      margin-right: 0.5rem;
-    }
-    .plan ul {
-      text-align: left;
-      padding-left: 1.2rem;
-      margin-bottom: 1rem;
-    }
-    .plan a.button {
-      display: inline-block;
-      background: linear-gradient(to right, #2bfafc, #298cff);
-      color: #101a25;
-      font-weight: bold;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 1rem;
-    }
-    .contact {
-      margin-top: 2rem;
-      font-size: 1rem;
-    }
-    .contact a {
-      color: #38ebfc;
-      text-decoration: none;
+    .founder-form label {
+      color: #21f7ff;
       font-weight: 600;
+      text-align: left;
+      margin-bottom: 0.3rem;
+      margin-left: 0.15rem;
+      font-size: 1.06rem;
+      letter-spacing: 0.01em;
     }
-    footer {
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      color: #666f7d;
+    .founder-form input, .founder-form textarea {
+      width: 98%;
+      padding: 0.9rem;
+      background: #222b3b;
+      border: 1.6px solid #21f7ff99;
+      border-radius: 9px;
+      color: #21f7ff;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: inherit;
+      resize: none;
+    }
+    .founder-form input:focus, .founder-form textarea:focus {
+      border-color: #21f7ff;
+      background: #232e40;
+    }
+    .why {
+      max-width:580px; margin:2.5rem auto 1.16rem auto; padding:0 1rem; font-size:1.13rem; color:#d2e2ff; text-align:left;
+    }
+    .why h2 { color:#20ebff; margin-bottom:1.13rem; letter-spacing:0.09em; font-size:1.15rem;}
+    .footer { margin-top:2.1rem; padding:1.15rem 0; font-size:1rem; color:#a0aab8; letter-spacing:0.01em; }
+    a { color:#2bfafc; text-decoration:none; }
+    @media (max-width:750px){
+      .plans-wrap{gap:0.96rem;}
+      .plan{padding:1.17rem 0.13rem 1.13rem 0.13rem;}
+      .why{font-size:1.02rem;}
+      .footer{font-size:0.85rem;}
+      h1{font-size:1.35rem;}
     }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <div class="limited-bar">
-      ⚡ Limited Access: <span id="countdown">23h 59m left to lock pricing</span>
-      <noscript><span>Offer expires soon. Enable JavaScript to see countdown.</span></noscript>
-    </div>
+  <div class="limited-access">
+    ⚡ <span>Limited Access:</span> <span class="timer" id="countdown">23h 58m left to lock pricing</span>
+  </div>
+  <div class="logo">
+    <img src="https://atlasos.tech/assets/logo-globe.png" alt="Atlas OS Logo" />
+  </div>
+  <h1>ATLAS OS</h1>
+  <p class="subhead">Welcome to your execution system shell. Choose your operational layer below.</p>
+  <div class="plans-wrap">
 
-    <h1>ATLAS OS</h1>
-    <p class="desc">Welcome to your execution system shell. Choose your operational layer below.</p>
-
-    <div class="plans">
-      <div class="plan">
-        <h3>STARTER PLAN</h3>
-        <p class="price"><del>$19.00</del> $9.00/mo</p>
-        <ul>
-          <li>✓ SmartStack™ day builder</li>
-          <li>✓ Focus Dashboard</li>
-          <li>✓ Neuro-profile sync</li>
-        </ul>
-        <a class="button" href="https://buy.stripe.com/test_starter_plan">Buy Starter</a>
-      </div>
-
-      <div class="plan">
-        <h3>PRO PLAN</h3>
-        <p class="price"><del>$39.00</del> $29.00/mo</p>
-        <ul>
-          <li>✓ Autonomous OS execution</li>
-          <li>✓ SmartStack workflows</li>
-          <li>✓ Priority support</li>
-          <li>✓ Custom automation builder</li>
-          <li>✓ Realtime OS analytics</li>
-        </ul>
-        <a class="button" href="https://buy.stripe.com/test_pro_plan">Buy Pro</a>
-      </div>
-    </div>
-
-    <div class="why">
-      <h2>WHY ATLAS OS?</h2>
+    <!-- STARTER PLAN -->
+    <div class="plan">
+      <h2>STARTER PLAN</h2>
+      <p class="price"><del>$19.00</del> $9.00/mo</p>
       <ul>
-        <li>› Alien-grade automation: hyper-adaptive workflows, zero manual lag.</li>
-        <li>› Live stack mutation: evolve your OS logic in real time—total control, zero downtime.</li>
-        <li>› Neuro-synced AI: aligns with operator state, adapts to focus, forecasts leverage.</li>
-        <li>› Distributed AI orchestration: instant SmartStack chaining, recursive feedback, future ops.</li>
-        <li>› Public/private OS nodes: encrypted, resilient, and globally scalable.</li>
-        <li>› Signal relay: proactive automations react to the world—no scripts, just intelligence.</li>
-        <li>› Atlas OS is not software—it's a sovereign, evolving execution engine.</li>
+        <li>SmartStack™ day builder</li>
+        <li>Focus Dashboard</li>
+        <li>Neuro-profile sync</li>
       </ul>
+      <a href="https://buy.stripe.com/8x29ALfC5dYx6Om86O4Rq03" target="_blank"><button class="plan-btn">Buy Starter</button></a>
     </div>
 
-    <div class="contact">
-      <p>Contact Command<br />
-      <a href="mailto:admin@atlasos.tech">admin@atlasos.tech</a><br />
-      Based in Tulsa, OK</p>
+    <!-- PRO PLAN -->
+    <div class="plan">
+      <h2>PRO PLAN</h2>
+      <p class="price"><del>$39.00</del> $29.00/mo</p>
+      <ul>
+        <li>All Starter features</li>
+        <li>Autonomous OS execution</li>
+        <li>SmartStack workflows</li>
+        <li>Priority support</li>
+        <li>Custom automation builder</li>
+        <li>Realtime OS analytics</li>
+      </ul>
+      <a href="https://buy.stripe.com/fZu7sDfC5f2B6Om2Mu4Rq01" target="_blank"><button class="plan-btn">Buy Pro</button></a>
     </div>
 
-    <footer>© 2025 Atlas OS. Engineered by Overseer.exe</footer>
+    <!-- ELITE PLAN -->
+    <div class="plan elite">
+      <h2>ELITE PLAN</h2>
+      <p class="price"><del>$149.00</del> $99.00/mo</p>
+      <ul>
+        <li>All Pro features</li>
+        <li>AI voice mode</li>
+        <li>Command chaining</li>
+        <li>Early access modules</li>
+        <li>AI agent orchestration</li>
+        <li>Deep integration options</li>
+        <li>Beta invite: mobile OS shell</li>
+      </ul>
+      <a href="https://buy.stripe.com/9B6bITahLg6Fb4Ccn44Rq02" target="_blank"><button class="plan-btn">Buy Elite</button></a>
+    </div>
+
+    <!-- FOUNDERS PLUS -->
+    <div class="plan founder">
+      <h2>FOUNDERS PLUS</h2>
+      <p class="price"><del>$250.00</del> <b>Request Access</b></p>
+      <ul>
+        <li>All Elite features</li>
+        <li>Personal onboarding (VIP setup)</li>
+        <li>Founders badge on dashboard</li>
+        <li>Founders Wall (your name, forever)</li>
+        <li>Live “Command Channel” w/ Atlas OS engineers</li>
+        <li>Roadmap voting & feature influence</li>
+        <li>Direct access for onboarding</li>
+      </ul>
+      <form class="founder-form" id="founderForm">
+        <label for="fname">Name</label>
+        <input type="text" name="name" id="fname" placeholder="Your Name" required />
+        <label for="femail">Email</label>
+        <input type="email" name="email" id="femail" placeholder="Your Email" required />
+        <label for="fmsg">Why should you be a Founder?</label>
+        <textarea name="message" id="fmsg" rows="3" placeholder="Tell us why..." required></textarea>
+        <button class="plan-btn" type="submit">Request Access</button>
+        <div id="founderSuccess" style="display:none;color:#21f7ff;font-weight:700;padding-top:8px;font-size:1.08rem;"></div>
+      </form>
+    </div>
   </div>
 
+  <div class="why">
+    <h2>WHY ATLAS OS?</h2>
+    <p><b>&#8250;</b> Alien-grade automation: hyper-adaptive workflows, zero manual lag.</p>
+    <p><b>&#8250;</b> Live stack mutation: evolve your OS logic in real time—total control, zero downtime.</p>
+    <p><b>&#8250;</b> Neuro-synced AI: aligns with operator state, adapts to focus, forecasts leverage.</p>
+    <p><b>&#8250;</b> Distributed AI orchestration: instant SmartStack chaining, recursive feedback, future ops.</p>
+    <p><b>&#8250;</b> Public/private OS nodes: encrypted, resilient, and globally scalable.</p>
+    <p><b>&#8250;</b> Signal relay: proactive automations react to the world—no scripts, just intelligence.</p>
+    <p><b>&#8250;</b> Atlas OS is not software—it's a sovereign, evolving execution engine.</p>
+  </div>
+  <div class="footer">
+    Contact Command <a href="mailto:admin@atlasos.tech">admin@atlasos.tech</a><br />
+    Based in Tulsa, OK<br /><br />
+    &copy; 2025 Atlas OS. Engineered by Overseer.exe<br />
+    <a href="https://atlasos.org">atlasos.org</a>
+  </div>
   <script>
-    const countdownEl = document.getElementById('countdown');
-    const target = new Date();
-    target.setHours(target.getHours() + 23, target.getMinutes() + 59, 0, 0);
-
-    function updateCountdown() {
-      const now = new Date();
-      const diff = target - now;
-      if (diff <= 0) {
-        countdownEl.textContent = 'Offer expired';
-        return;
+    // Timer auto-update
+    function startTimer(hours, minutes) {
+      var now = new Date();
+      var deadline = new Date(now.getTime() + hours*60*60*1000 + minutes*60*1000);
+      var countdown = document.getElementById('countdown');
+      function update() {
+        var diff = deadline - new Date();
+        if (diff < 0) { countdown.innerHTML = 'Offer expired'; return; }
+        var h = Math.floor(diff/(1000*60*60)), m = Math.floor((diff%(1000*60*60))/(1000*60));
+        countdown.innerHTML = h+'h '+m+'m left to lock pricing';
+        setTimeout(update, 15000);
       }
-      const hrs = Math.floor(diff / 1000 / 60 / 60);
-      const mins = Math.floor((diff / 1000 / 60) % 60);
-      countdownEl.textContent = `${hrs}h ${mins}m left to lock pricing`;
-      requestAnimationFrame(updateCountdown);
+      update();
     }
-
-    updateCountdown();
+    startTimer(23,58);
+    // Demo Founder Plus form (can wire to backend/email service later)
+    document.getElementById('founderForm').onsubmit = function(e) {
+      e.preventDefault();
+      var name = document.getElementById('fname').value.trim();
+      var success = document.getElementById('founderSuccess');
+      success.innerHTML = "Thank you, "+name+"! Your request has been sent.";
+      success.style.display = "block";
+      setTimeout(function(){ success.style.display = "none"; }, 7000);
+      document.getElementById('founderForm').reset();
+    };
   </script>
 </body>
 </html>
