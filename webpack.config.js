@@ -1,10 +1,8 @@
-const path = require('path');
-
 module.exports = {
-  entry: './src/index.js',  // Adjust this based on your source folder structure
+  entry: './src/index.js',  // Entry point
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',  // Output file
+    path: path.resolve(__dirname, 'dist'),  // Output directory
   },
   module: {
     rules: [
@@ -12,14 +10,14 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: 'babel-loader',  // Transpile JavaScript
         },
       },
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx'],  // File extensions to resolve
   },
+  mode: 'development',  // Set mode explicitly to 'development'
 };
-
 
