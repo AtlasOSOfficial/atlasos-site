@@ -1,5 +1,10 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/landing", "destination": "/landing.html" },
+    { "source": "/success", "destination": "/success.html" },
+    { "source": "/cancel", "destination": "/cancel.html" }
+  ],
   "cleanUrls": true,
   "trailingSlash": false
 }
