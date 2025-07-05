@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>🧬 Atlas OS — Sovereign Runtime</title>
-  <link rel="icon" href="assets/favicon.ico" />
+  <link rel="icon" href="assets/favicon.ico"/>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap"
     rel="stylesheet"
@@ -26,83 +26,111 @@
       --bg: var(--bg-light);
       --text: var(--text-dark);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin:0; padding:0 }
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Inter', sans-serif;
-      display: flex; flex-direction: column;
-      min-height: 100vh;
+      font-family:'Inter',sans-serif;
+      display:flex; flex-direction:column;
+      min-height:100vh; overflow-x:hidden;
     }
+    /* Starfield Canvas */
+    #starfield {
+      position: fixed; top:0; left:0;
+      width:100%; height:100%; z-index:-1;
+    }
+    /* Theme Toggle */
     .theme-toggle {
-      position: fixed; top: 1rem; right: 1rem;
-      background: none; border: 2px solid var(--text);
-      border-radius: 999px; padding: 0.5rem;
-      cursor: pointer; color: var(--text);
-      font-size: 1.25rem;
+      position:fixed; top:1rem; right:1rem;
+      background:none; border:2px solid var(--text);
+      border-radius:999px; padding:.5rem;
+      cursor:pointer; color:var(--text);
+      font-size:1.25rem;
+      z-index:2;
     }
+    /* Hero */
     .hero {
-      text-align: center; padding: 4rem 1rem;
-      background: linear-gradient(135deg, var(--purple), var(--teal));
-      color: #fff;
+      text-align:center; padding:5rem 1rem;
+      position:relative; overflow:hidden;
+      background:linear-gradient(135deg,var(--purple),var(--teal));
+      color:#fff;
+      animation: fadeIn 1s ease-out;
     }
-    .hero h1 { font-size: 2.75rem; margin-bottom: 0.5rem; }
+    .hero h1 {
+      font-size:3rem; margin-bottom:.5rem;
+      animation: popIn 0.8s ease-out;
+    }
     .hero p {
-      font-size: 1.125rem; max-width: 640px;
-      margin: auto; opacity: 0.9; line-height: 1.4;
+      font-size:1.125rem; max-width:640px; margin:auto;
+      opacity:.9; line-height:1.4;
     }
+    /* Buttons */
     .buttons {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1rem; margin-top: 2.5rem;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:1rem; margin-top:3rem;
     }
     .btn-plan {
-      background: #fff; color: #1a1a1a;
-      border-radius: 0.75rem; padding: 1rem;
-      text-align: center; cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      font-weight: 600; text-decoration: none;
+      background:#fff; color:#1a1a1a;
+      border-radius:.75rem; padding:1rem;
+      text-align:center; cursor:pointer;
+      transition:transform .2s,box-shadow .2s;
+      font-weight:600; text-decoration:none;
+      position:relative;
     }
     .btn-plan.free {
-      background: rgba(255,255,255,0.2); color: #fff;
+      background:rgba(255,255,255,0.2); color:#fff;
+    }
+    .btn-plan::before {
+      content:''; position:absolute; inset:0;
+      border-radius:.75rem;
+      background:radial-gradient(circle at top left,rgba(255,255,255,0.3),transparent);
+      opacity:0; transition:opacity .3s;
     }
     .btn-plan:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      transform:translateY(-6px);
+      box-shadow:0 10px 30px rgba(0,0,0,.2);
     }
+    .btn-plan:hover::before { opacity:1 }
     .btn-plan span {
-      display: block; margin-top: 0.5rem;
-      font-size: 0.875rem; opacity: 0.8; font-weight: 400;
+      display:block; margin-top:.5rem;
+      font-size:.875rem; opacity:.8;
+      font-weight:400;
     }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    @keyframes popIn { 0%{transform:scale(.8)}100%{transform:scale(1)} }
+    /* Terminal */
     .terminal {
-      background: #1e1e1e; color: #d4d4d4;
-      font-family: 'Fira Code', monospace;
-      margin: 2rem auto; padding: 1rem;
-      border-radius: 0.5rem; max-width: 700px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      background:#1e1e1e; color:#d4d4d4;
+      font-family:'Fira Code',monospace;
+      margin:2rem auto; padding:1rem;
+      border-radius:.5rem; max-width:700px;
+      box-shadow:0 4px 20px rgba(0,0,0,.2);
     }
     .terminal-content {
-      outline: none; white-space: pre-wrap; word-wrap: break-word;
+      outline:none; white-space:pre-wrap; word-wrap:break-word;
     }
     .cursor {
-      display: inline-block; width: 8px;
-      background: var(--text);
-      animation: blink 1s step-start infinite;
-      vertical-align: bottom; margin-left: 2px;
+      display:inline-block; width:8px;
+      background:var(--text);
+      animation:blink 1s step-start infinite;
+      vertical-align:bottom; margin-left:2px;
     }
-    @keyframes blink { 50% { opacity: 0; } }
+    @keyframes blink { 50%{opacity:0} }
+    /* Footer */
     .site-footer {
-      text-align: center; margin-top: auto;
-      padding: 2rem 1rem; font-size: 0.875rem; opacity: 0.7;
+      text-align:center; margin-top:auto;
+      padding:2rem 1rem; font-size:.875rem; opacity:.7;
     }
-    @media (min-width: 600px) {
-      .hero h1 { font-size: 3rem; }
-      .btn-plan { width: 200px; }
+    @media (min-width:600px) {
+      .hero h1 { font-size:3.5rem }
+      .btn-plan { width:200px }
     }
   </style>
 </head>
 <body>
 
+  <canvas id="starfield"></canvas>
   <button class="theme-toggle" aria-label="Toggle theme">🌗</button>
 
   <header class="hero">
@@ -117,12 +145,10 @@
         ✨ Starter — $9/mo
         <span>Entry-level access for tinkerers.</span>
       </a>
-      <!-- PRO now correctly uses the 9B6b... link -->
       <a href="https://buy.stripe.com/9B6bITahLg6Fb4Ccn44Rq02" class="btn-plan core">
         ⚡ Pro — $29/mo
         <span>Enhanced commands for solo engineers.</span>
       </a>
-      <!-- ELITE now correctly uses the fZu7s... link -->
       <a href="https://buy.stripe.com/fZu7sDfC5f2B6Om2Mu4Rq01" class="btn-plan sovereign">
         🚀 Elite — $99/mo
         <span>Full AI interface & SystemLink control.</span>
@@ -139,46 +165,73 @@
   </footer>
 
   <script>
+    // Starfield
+    const canvas = document.getElementById('starfield'), ctx = canvas.getContext('2d');
+    function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
+    window.onresize=resize; resize();
+    const stars=Array.from({length:200},() => ({
+      x:Math.random()*canvas.width,
+      y:Math.random()*canvas.height,
+      r:Math.random()*1.2+0.2,
+      vx:(Math.random()-0.5)*0.1, vy:(Math.random()-0.5)*0.1
+    }));
+    function animate(){
+      ctx.fillStyle= 'rgba(0,0,0,0.3)'; ctx.fillRect(0,0,canvas.width,canvas.height);
+      stars.forEach(s => {
+        s.x+=s.vx; s.y+=s.vy;
+        if(s.x<0||s.x>canvas.width) s.vx*=-1;
+        if(s.y<0||s.y>canvas.height) s.vy*=-1;
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,s.r,0,2*Math.PI);
+        ctx.fillStyle='#fff'; ctx.fill();
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
     // Theme toggle
     const toggle = document.querySelector('.theme-toggle');
-    toggle.addEventListener('click', () => {
-      document.documentElement.dataset.theme =
-        document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-    });
+    toggle.onclick = () => {
+      const root = document.documentElement;
+      root.dataset.theme = root.dataset.theme==='dark'?'light':'dark';
+    };
 
-    // Interactive terminal
-    const term = document.querySelector('.terminal-content');
-    const cursor = document.createElement('span');
-    cursor.className = 'cursor';
-
-    function appendPrompt() {
-      term.textContent = 'atlasos> ';
-      term.appendChild(cursor);
-      placeCaretAtEnd(term);
+    // Interactive Terminal + SystemLink messages
+    const term = document.querySelector('.terminal-content'),
+          cursor = document.createElement('span');
+    cursor.className='cursor';
+    const sysMsgs = [
+      'SystemLink: Establishing quantum channel… ✅',
+      'Outworld AI: Synced with cosmic node… 🛰️',
+      'Security: All shields at maximum… 🛡️'
+    ];
+    function appendLine(txt){
+      const d=document.createElement('div'); d.textContent=txt;
+      term.parentNode.insertBefore(d,term);
     }
-
-    function placeCaretAtEnd(el) {
+    function runSystemLink(){
+      sysMsgs.forEach((m,i) => setTimeout(() => appendLine(m), i*600));
+      setTimeout(appendPrompt, sysMsgs.length*600 + 200);
+    }
+    function appendPrompt(){
+      term.textContent='atlasos> '; term.appendChild(cursor);
+      placeCaret(term);
+    }
+    function placeCaret(el){
       el.focus();
-      const sel = window.getSelection();
-      const range = document.createRange();
-      range.selectNodeContents(el);
-      range.collapse(false);
-      sel.removeAllRanges();
-      sel.addRange(range);
+      const range=document.createRange(), sel=window.getSelection();
+      range.selectNodeContents(el); range.collapse(false);
+      sel.removeAllRanges(); sel.addRange(range);
     }
-
-    term.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
+    term.addEventListener('keypress', e => {
+      if(e.key==='Enter'){
         e.preventDefault();
-        const input = term.textContent.replace('atlasos> ', '').trim();
-        const line = document.createElement('div');
-        line.textContent = `Executing: ${input}`;
-        term.parentNode.insertBefore(line, term);
+        const input=term.textContent.replace('atlasos> ','').trim();
+        appendLine(`Executing: ${input}`);
         appendPrompt();
       }
     });
-
-    appendPrompt();
+    runSystemLink();
   </script>
 </body>
 </html>
