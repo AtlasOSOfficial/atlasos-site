@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <meta name="description" content="Atlas OS — Sovereign AI-native OS for runtime automation, execution & control."/>
   <meta name="theme-color" content="#000000"/>
   <title>Atlas OS — Sovereign Command Engine</title>
@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="assets/css/widget.min.css"/>
 
   <style>
+    /* Color & Layout Variables */
     :root {
       --accent: #0ff;
       --bg-start: #0d1117;
@@ -23,7 +24,7 @@
       --radius: 8px;
       --transition: 0.3s ease;
     }
-    * { box-sizing:border-box; margin:0; padding:0 }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background: radial-gradient(circle at top, var(--bg-start), var(--bg-end));
       color: var(--fg);
@@ -32,60 +33,58 @@
       overflow-x: hidden;
       line-height: 1.5;
     }
-    a { color: inherit; text-decoration: none }
+    a { color: inherit; text-decoration: none; }
 
     /* Hero */
     header {
-      position: relative; overflow: hidden;
-      padding: 6rem 2rem 4rem;
+      position: relative; overflow: hidden; padding: 6rem 2rem 4rem;
     }
     header::before {
-      content:""; position:absolute; inset:0;
+      content:""; position: absolute; inset: 0;
       background: radial-gradient(circle, rgba(0,255,255,0.1), transparent);
-      animation: pulseBG 12s infinite alternate;
-      z-index:-1;
+      animation: pulseBG 12s infinite alternate; z-index: -1;
     }
     @keyframes pulseBG {
-      from { transform: scale(1); opacity:.6 }
-      to   { transform: scale(1.2); opacity:.3 }
+      from { transform: scale(1); opacity: .6 }
+      to   { transform: scale(1.2); opacity: .3 }
     }
     header h1 {
       font-size: 3.6rem; color: var(--accent);
-      text-shadow: 0 0 20px var(--accent);
-      margin-bottom:1rem;
+      text-shadow: 0 0 20px var(--accent); margin-bottom: 1rem;
     }
     header p {
-      font-size:1.2rem; max-width:700px;
-      margin:0 auto 2rem; color: var(--fg-muted);
+      font-size: 1.2rem; max-width: 700px;
+      margin: 0 auto 2rem; color: var(--fg-muted);
     }
     .scroll-down {
-      font-size:2rem; color:var(--accent);
-      animation: bounce 2.5s infinite;
+      font-size: 2rem; color: var(--accent);
+      animation: bounce 2.5s infinite; display: inline-block;
     }
     @keyframes bounce {
-      0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}
+      0%,100% { transform: translateY(0) }
+      50%     { transform: translateY(10px) }
     }
 
     /* Buttons */
     .btn {
-      display:inline-block; background:var(--accent);
-      color:#000; font-weight:700; border-radius:var(--radius);
-      padding:1rem 2rem; position:relative; overflow:hidden;
-      transition:var(--transition);
+      display: inline-block; background: var(--accent);
+      color: #000; font-weight: 700; border-radius: var(--radius);
+      padding: 1rem 2rem; position: relative; overflow: hidden;
+      transition: var(--transition);
     }
-    .btn:hover {transform:scale(1.05)}
+    .btn:hover { transform: scale(1.05) }
     .btn::after {
       content:""; position:absolute; top:50%; left:50%;
       width:0; height:0; background:rgba(0,0,0,0.1);
       border-radius:50%; transform:translate(-50%,-50%);
-      transition:width .4s ease, height .4s ease;
+      transition: width .4s ease, height .4s ease;
     }
-    .btn:active::after {width:200%; height:200%; transition:0s}
+    .btn:active::after { width:200%; height:200%; transition:0s }
 
-    /* Pricing cards */
+    /* Pricing Cards */
     .tiers {
-      display:grid; gap:2rem; padding:0 2rem;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      display: grid; gap: 2rem; padding: 0 2rem;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
       max-width:1200px; margin:3rem auto;
     }
     .card {
@@ -99,10 +98,10 @@
     .card:hover .inner {
       transform:rotateX(3deg) rotateY(3deg);
     }
-    .card h3 {margin-bottom:.75rem;color:var(--accent)}
-    .card p {margin-bottom:1rem;color:var(--fg-muted)}
+    .card h3 { margin-bottom:.75rem; color:var(--accent) }
+    .card p  { margin-bottom:1rem; color:var(--fg-muted) }
 
-    /* Widget */
+    /* Dashboard Widget */
     #widget-container {
       width:90%; max-width:800px; height:400px;
       margin:4rem auto; border-radius:var(--radius);
@@ -127,14 +126,14 @@
     .terminal-input input {
       flex:1; background:#162029; border:none;
       border-radius:6px; color:#fff; padding:.8rem;
-      font-size:1rem;
+      font-size:1rem; transition: border-color .2s ease;
     }
     .cursor {
       display:inline-block; width:1ch;
       background:var(--fg); animation:blink .8s step-end infinite;
       margin-left:.2rem;
     }
-    @keyframes blink {0%,100%{opacity:1}50%{opacity:0}}
+    @keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
     #suggestions {
       margin-top:.5rem; color:var(--fg-muted);
       font-size:.9rem; display:flex; flex-wrap:wrap;
@@ -149,8 +148,8 @@
     }
   </style>
 </head>
-<body>
 
+<body>
   <header>
     <h1>🧬 Atlas OS — Sovereign Runtime</h1>
     <p>Command automation. Execute directives. Control your system at runtime.</p>
@@ -207,45 +206,40 @@
   <!-- Widget & Terminal Scripts -->
   <script src="assets/js/widget.min.js" defer></script>
   <script>
-    const API = window.NEXT_PUBLIC_API_ENDPOINT;
-
+    const API = window.NEXT_PUBLIC_API_ENDPOINT; 
     async function sendDirective() {
       const inp = document.getElementById('terminalInput');
       const log = document.getElementById('terminalLog');
       const cmd = inp.value.trim();
       if (!cmd) return;
 
-      // Remove previous error highlights
       inp.style.borderColor = '';
-      log.insertAdjacentHTML('beforeend',
-        `<div><strong>🧍 You:</strong> ${cmd}</div>`);
-
-      // Loader
-      const loader = document.createElement('div');
-      loader.textContent = '🕒 Executing…';
-      log.appendChild(loader);
-      log.scrollTop = log.scrollHeight;
+      log.insertAdjacentHTML('beforeend', `<div><strong>🧍 You:</strong> ${cmd}</div>`);
+      const loader = document.createElement('div'); loader.textContent='🕒 Executing…';
+      log.appendChild(loader); log.scrollTop = log.scrollHeight;
 
       try {
-        const res = await fetch(API, {
-          method: 'POST',
-          headers: {'Content-Type':'application/json'},
-          body: JSON.stringify({command: cmd})
+        let res = await fetch(API, {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({command:cmd})
         });
+        if (res.status === 405) {
+          // fallback to GET
+          res = await fetch(`${API}?command=${encodeURIComponent(cmd)}`);
+        }
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         loader.remove();
-        const output = data.output ?? JSON.stringify(data);
+        const out = data.output ?? JSON.stringify(data);
         log.insertAdjacentHTML('beforeend',
-          `<div><strong>🧠 Atlas:</strong> ${output}<span class="cursor"></span></div>`);
+          `<div><strong>🧠 Atlas:</strong> ${out}<span class="cursor"></span></div>`);
       } catch (err) {
         loader.remove();
         log.insertAdjacentHTML('beforeend',
           `<div><strong>⚠️ Error:</strong> ${err.message}</div>`);
-        inp.style.borderColor = 'red';
+        inp.style.borderColor='red';
       }
-      log.scrollTop = log.scrollHeight;
-      inp.value = '';
+      log.scrollTop = log.scrollHeight; inp.value = '';
     }
 
     const suggestions = ['status','deploy core','help'];
@@ -262,26 +256,22 @@
 
     document.addEventListener("DOMContentLoaded", () => {
       Widget.init({
-        containerId: "widget-container",
-        theme: "dark",
-        apiKey: window.NEXT_PUBLIC_WIDGET_API_KEY
+        containerId:"widget-container",
+        theme:"dark",
+        apiKey:window.NEXT_PUBLIC_WIDGET_API_KEY
       });
       renderSuggestions();
-
-      // Slide‐in animations
-      ['dashboard','demo'].forEach((id,i) => {
-        const el = document.getElementById(id);
-        el.style.transform = i===0 ? 'translateX(-100vw)' : 'translateX(100vw)';
-        el.style.transition = 'transform .6s ease';
+      ['dashboard','demo'].forEach((id,i)=>{
+        const el=document.getElementById(id);
+        el.style.transform = i? 'translateX(100vw)' : 'translateX(-100vw)';
+        el.style.transition='transform .6s ease';
       });
-      setTimeout(() => {
-        document.getElementById('dashboard').style.transform = 'translateX(0)';
-        document.getElementById('demo').style.transform      = 'translateX(0)';
-      }, 200);
-
-      // Auto‐focus after checkout
-      if (location.hash === "#demo") {
-        setTimeout(() => document.getElementById("terminalInput").focus(), 300);
+      setTimeout(()=>{
+        document.getElementById('dashboard').style.transform='translateX(0)';
+        document.getElementById('demo').style.transform='translateX(0)';
+      },200);
+      if(location.hash==="#demo"){
+        setTimeout(()=>document.getElementById("terminalInput").focus(),300);
       }
     });
   </script>
