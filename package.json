@@ -28,5 +28,10 @@
   "homepage": "https://atlasos.org",
   "devDependencies": {
     "vite": "^7.0.2"
+  },
+  "dependencies": {
+    "@stripe/stripe-js": "^7.4.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   }
 }
