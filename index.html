@@ -23,7 +23,7 @@
       --radius: 8px;
       --transition: 0.3s ease;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing:border-box; margin:0; padding:0; }
     body {
       background: radial-gradient(circle at top, var(--bg-start), var(--bg-end));
       color: var(--fg);
@@ -36,168 +36,114 @@
 
     /* Hero */
     header {
-      position: relative;
+      position: relative; overflow: hidden;
       padding: 6rem 2rem 4rem;
-      overflow: hidden;
     }
     header::before {
-      content: "";
-      position: absolute; inset: 0;
+      content:""; position:absolute; inset:0;
       background: radial-gradient(circle, rgba(0,255,255,0.1), transparent);
-      animation: pulseBG 12s infinite alternate;
-      z-index: -1;
+      animation: pulseBG 12s infinite alternate; z-index:-1;
     }
     @keyframes pulseBG {
-      from { transform: scale(1); opacity: .6 }
-      to   { transform: scale(1.2); opacity: .3 }
+      from { transform: scale(1); opacity:.6 }
+      to   { transform: scale(1.2); opacity:.3 }
     }
     header h1 {
-      font-size: 3.6rem;
-      color: var(--accent);
+      font-size: 3.6rem; color: var(--accent);
       text-shadow: 0 0 20px var(--accent);
-      margin-bottom: 1rem;
+      margin-bottom:1rem;
     }
     header p {
-      font-size: 1.2rem;
-      max-width: 700px;
-      margin: 0 auto 2rem;
-      color: var(--fg-muted);
+      font-size:1.2rem; max-width:700px;
+      margin:0 auto 2rem; color: var(--fg-muted);
     }
     .scroll-down {
-      font-size: 2rem;
-      color: var(--accent);
+      font-size:2rem; color:var(--accent);
       animation: bounce 2.5s infinite;
     }
     @keyframes bounce {
-      0%,100% { transform: translateY(0) }
-      50%     { transform: translateY(10px) }
+      0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}
     }
 
     /* Buttons */
     .btn {
-      display: inline-block;
-      background: var(--accent);
-      color: #000;
-      font-weight: 700;
-      border-radius: var(--radius);
-      padding: 1rem 2rem;
-      position: relative;
-      overflow: hidden;
+      display:inline-block; background:var(--accent);
+      color:#000; font-weight:700; border-radius:var(--radius);
+      padding:1rem 2rem; position:relative; overflow:hidden;
       transition: var(--transition);
     }
-    .btn:hover { transform: scale(1.05); }
+    .btn:hover { transform:scale(1.05); }
     .btn::after {
-      content: "";
-      position: absolute; top: 50%; left: 50%;
-      width: 0; height: 0;
-      background: rgba(0,0,0,0.1);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width .4s ease, height .4s ease;
+      content:""; position:absolute; top:50%; left:50%;
+      width:0; height:0; background:rgba(0,0,0,0.1);
+      border-radius:50%; transform:translate(-50%,-50%);
+      transition:width .4s ease, height .4s ease;
     }
-    .btn:active::after {
-      width: 200%; height: 200%;
-      transition: 0s;
-    }
+    .btn:active::after { width:200%; height:200%; transition:0s; }
 
     /* Pricing cards */
     .tiers {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      padding: 0 2rem;
-      max-width: 1200px;
-      margin: 3rem auto;
+      display:grid; gap:2rem; padding:0 2rem;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      max-width:1200px; margin:3rem auto;
     }
     .card {
-      background: #00121c;
-      border: 2px solid var(--accent);
-      border-radius: var(--radius);
-      perspective: 500px;
+      background:#00121c; border:2px solid var(--accent);
+      border-radius:var(--radius); perspective:500px;
     }
     .card .inner {
-      padding: 2rem;
-      transform-style: preserve-3d;
-      transition: transform .2s ease;
+      padding:2rem; transform-style:preserve-3d;
+      transition:transform .2s ease;
     }
     .card:hover .inner {
-      transform: rotateX(3deg) rotateY(3deg);
+      transform:rotateX(3deg) rotateY(3deg);
     }
-    .card h3 { margin-bottom: .75rem; color: var(--accent); }
-    .card p { margin-bottom: 1rem; color: var(--fg-muted); }
+    .card h3 { margin-bottom:.75rem; color:var(--accent); }
+    .card p  { margin-bottom:1rem; color:var(--fg-muted); }
 
-    /* Dashboard widget */
+    /* Widget */
     #widget-container {
-      width: 90%;
-      max-width: 800px;
-      height: 400px;
-      margin: 4rem auto;
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      width:90%; max-width:800px; height:400px;
+      margin:4rem auto; border-radius:var(--radius);
+      overflow:hidden; box-shadow:0 0 20px rgba(0,0,0,.5);
     }
 
     /* Terminal */
     .terminal {
-      max-width: 1000px;
-      margin: 4rem auto 2rem;
-      background: #0a1018;
-      border: 2px solid #0ff3;
-      border-radius: var(--radius);
-      padding: 2rem;
-      transition: var(--transition);
+      max-width:1000px; margin:4rem auto 2rem;
+      background:#0a1018; border:2px solid #0ff3;
+      border-radius:var(--radius); padding:2rem;
     }
     .terminal-log {
-      height: 300px;
-      background: #00070f;
-      padding: 1rem;
-      border-radius: var(--radius);
-      font-family: monospace;
-      color: #b4f3ff;
-      overflow-y: auto;
-      margin-bottom: 1rem;
+      height:300px; background:#00070f; padding:1rem;
+      border-radius:var(--radius); font-family:monospace;
+      color:#b4f3ff; overflow-y:auto; margin-bottom:1rem;
     }
     .terminal-input {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
+      display:flex; gap:1rem; justify-content:center;
     }
     .terminal-input input {
-      flex: 1;
-      background: #162029;
-      border: none;
-      border-radius: 6px;
-      color: #fff;
-      padding: .8rem;
-      font-size: 1rem;
+      flex:1; background:#162029; border:none;
+      border-radius:6px; color:#fff; padding:.8rem;
+      font-size:1rem;
     }
     .cursor {
-      display: inline-block;
-      width: 1ch;
-      background: var(--fg);
-      animation: blink .8s step-end infinite;
-      margin-left: .2rem;
+      display:inline-block; width:1ch;
+      background:var(--fg); animation:blink .8s step-end infinite;
+      margin-left:.2rem;
     }
-    @keyframes blink {
-      0%,100% { opacity: 1 } 50% { opacity: 0 }
-    }
+    @keyframes blink {0%,100%{opacity:1}50%{opacity:0}}
     #suggestions {
-      margin-top: .5rem;
-      color: var(--fg-muted);
-      font-size: .9rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: .5rem;
+      margin-top:.5rem; color:var(--fg-muted);
+      font-size:.9rem; display:flex; flex-wrap:wrap;
+      justify-content:center; gap:.5rem;
     }
 
     /* Footer */
     footer {
-      padding: 2rem 1rem;
-      font-size: .9rem;
-      color: var(--fg-muted);
-      border-top: 1px solid rgba(255,255,255,0.1);
-      margin-top: 2rem;
+      padding:2rem 1rem; font-size:.9rem;
+      color:var(--fg-muted); border-top:1px solid rgba(255,255,255,0.1);
+      margin-top:2rem;
     }
   </style>
 </head>
@@ -230,7 +176,7 @@
 
     <div class="card"><div class="inner">
       <h3>🚀 Elite — $99/mo</h3>
-      <p>Full AI interface with memory, monetization hooks, and SystemLink control.</p>
+      <p>Full AI interface with memory, monetization hooks & SystemLink control.</p>
       <a href="https://buy.stripe.com/9B6bITahLg6Fb4Ccn44Rq02" class="btn" target="_blank">Activate Elite</a>
     </div></div>
   </div>
@@ -246,7 +192,7 @@
       <div><strong>🧠 Atlas:</strong> Sovereign runtime active. Awaiting directives…</div>
     </div>
     <div class="terminal-input">
-      <input type="text" id="terminalInput" placeholder="e.g. deploy system core"/>
+      <input type="text" id="terminalInput" placeholder="e.g. status"/>
       <button onclick="sendDirective()" class="btn">Execute</button>
     </div>
     <div id="suggestions"></div>
@@ -259,30 +205,50 @@
   <!-- Widget & Terminal Scripts -->
   <script src="assets/js/widget.min.js" defer></script>
   <script>
-    function sendDirective() {
+    const API = window.NEXT_PUBLIC_API_ENDPOINT; // e.g. https://atlasos.org/api/execute
+
+    async function sendDirective() {
       const inp = document.getElementById('terminalInput');
       const log = document.getElementById('terminalLog');
       const cmd = inp.value.trim();
       if (!cmd) return;
-      log.insertAdjacentHTML('beforeend',
-        `<div><strong>🧍 You:</strong> ${cmd}</div>`);
-      setTimeout(() => {
+      // Show user command
+      log.insertAdjacentHTML('beforeend', `<div><strong>🧍 You:</strong> ${cmd}</div>`);
+      // Loading indicator
+      const loader = document.createElement('div');
+      loader.textContent = '🕒 Executing…';
+      log.appendChild(loader);
+      log.scrollTop = log.scrollHeight;
+
+      try {
+        const res = await fetch(API, {
+          method: 'POST',
+          headers: { 'Content-Type':'application/json' },
+          body: JSON.stringify({ command: cmd })
+        });
+        const { output } = await res.json();
+        loader.remove();
         log.insertAdjacentHTML('beforeend',
-          `<div><strong>🧠 Atlas:</strong> Executing '${cmd}' — Runtime confirmed.<span class="cursor"></span></div>`);
-        log.scrollTop = log.scrollHeight;
-      }, 400);
+          `<div><strong>🧠 Atlas:</strong> ${output}<span class="cursor"></span></div>`);
+      } catch (e) {
+        loader.remove();
+        log.insertAdjacentHTML('beforeend',
+          `<div><strong>⚠️ Error:</strong> ${e.message}</div>`);
+      }
+      log.scrollTop = log.scrollHeight;
       inp.value = '';
     }
 
-    const suggestions = ['deploy core','status','update'];
+    const suggestions = ['status','deploy core','help'];
     function renderSuggestions() {
       document.getElementById('suggestions').innerHTML =
-        suggestions.map(s => `<button onclick="fillCmd('${s}')" class="btn" style="padding:.3rem .8rem;font-size:.85rem;">${s}</button>`).join('');
+        suggestions.map(s =>
+          `<button onclick="fillCmd('${s}')" class="btn" style="padding:.3rem .8rem;font-size:.85rem;">${s}</button>`
+        ).join('');
     }
     function fillCmd(cmd) {
       const inp = document.getElementById('terminalInput');
-      inp.value = cmd;
-      inp.focus();
+      inp.value = cmd; inp.focus();
     }
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -293,7 +259,6 @@
       });
       renderSuggestions();
 
-      // Slide sections in
       ['dashboard','demo'].forEach((id,i) => {
         const el = document.getElementById(id);
         el.style.transform = i===0 ? 'translateX(-100vw)' : 'translateX(100vw)';
@@ -301,10 +266,9 @@
       });
       setTimeout(() => {
         document.getElementById('dashboard').style.transform = 'translateX(0)';
-        document.getElementById('demo').style.transform = 'translateX(0)';
+        document.getElementById('demo').style.transform      = 'translateX(0)';
       }, 200);
 
-      // Auto-focus terminal after checkout
       if (location.hash === "#demo") {
         setTimeout(() => document.getElementById("terminalInput").focus(), 300);
       }
