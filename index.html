@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Atlas OS Is Live</title>
+  <title>🌐 Atlas OS Is Live</title>
   <link rel="stylesheet" href="assets/styles.css">
   <link rel="icon" href="assets/favicon.ico">
   <script src="https://js.stripe.com/v3/"></script>
@@ -12,7 +12,7 @@
   <header class="hero">
     <h1>🌐 Atlas OS Is Live</h1>
     <p>Welcome to the sovereign execution layer of Overseer.exe</p>
-    <a id="buy-button" class="btn buy">Buy Access</a>
+    <button id="buy-button" class="btn buy">Buy Access</button>
   </header>
   <footer class="site-footer">
     <p>© 2025 Atlas Industries · Overseer.exe · SystemLink v1.0 · Sovereign Runtime Online</p>
@@ -22,7 +22,7 @@
     document.getElementById('buy-button').addEventListener('click', () => {
       fetch('/api/create-checkout-session', { method: 'POST' })
         .then(res => res.json())
-        .then(session => stripe.redirectToCheckout({ sessionId: session.id }));
+        .then(({id}) => stripe.redirectToCheckout({ sessionId: id }));
     });
   </script>
 </body>
