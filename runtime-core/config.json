@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "title": "🧬 Atlas OS — Sovereign Runtime",
+    "description": "Atlas OS: Autonomous, scalable, and reflexive runtime control with instant shell access.",
+    "ogImage": "https://atlasos.org/banner.png"
+  },
+  "hero": {
+    "headline": "Atlas OS — Sovereign Runtime",
+    "subline": "Autonomous shell access · Reflexive control · Infinite extensibility",
+    "buttons": [
+      { "label": "Launch Terminal", "scrollTo": "terminal" },
+      { "label": "View Plans", "scrollTo": "pricing" }
+    ]
+  },
+  "plans": [
+    {
+      "id": "starter",
+      "emoji": "🧪",
+      "label": "Starter",
+      "price": "$9/mo",
+      "desc": "Launch pad for sovereign builders and explorers.",
+      "link": "https://buy.stripe.com/8x29ALfC5dYx6Om86O4Rq03"
+    },
+    {
+      "id": "pro",
+      "emoji": "🛠",
+      "label": "Pro",
+      "price": "$29/mo",
+      "desc": "For power users optimizing pipelines and control layers.",
+      "link": "https://buy.stripe.com/fZu7sDfC5f2B6Om2Mu4Rq01"
+    },
+    {
+      "id": "elite",
+      "emoji": "🧠",
+      "label": "Elite",
+      "price": "$99/mo",
+      "desc": "Full runtime sovereignty with AI-native reflex systems.",
+      "link": "https://buy.stripe.com/9B6bITahLg6Fb4Ccn44Rq02"
+    }
+  ],
+  "commands": {
+    "deploy core": "[✓] Protocol stack initialized.",
+    "status": "[✓] System nominal. Sovereignty secure.",
+    "unlock elite": "[elite] Reflexive monetization enabled.",
+    "clear": "[info] Console reset.",
+    "help": "[info] deploy core · status · unlock elite · buy [tier] · clear"
+  },
+  "footer": "© 2025 Atlas Industries · Sovereign Runtime v1.0.0 · Overseer.exe online"
+}
+
