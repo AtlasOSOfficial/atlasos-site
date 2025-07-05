@@ -7,14 +7,13 @@
   <meta name="theme-color" content="#000000"/>
   <title>Atlas OS — Sovereign Command Engine</title>
 
-  <!-- Fonts & Widget CSS -->
+  <!-- Google Fonts & Widget CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/widget.min.css"/>
 
   <style>
-    /* Color & Layout Variables */
     :root {
       --accent: #0ff;
       --bg-start: #0d1117;
@@ -24,7 +23,7 @@
       --radius: 8px;
       --transition: 0.3s ease;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing:border-box; margin:0; padding:0; }
     body {
       background: radial-gradient(circle at top, var(--bg-start), var(--bg-end));
       color: var(--fg);
@@ -40,51 +39,51 @@
       position: relative; overflow: hidden; padding: 6rem 2rem 4rem;
     }
     header::before {
-      content:""; position: absolute; inset: 0;
-      background: radial-gradient(circle, rgba(0,255,255,0.1), transparent);
-      animation: pulseBG 12s infinite alternate; z-index: -1;
+      content:""; position:absolute; inset:0;
+      background:radial-gradient(circle, rgba(0,255,255,0.1), transparent);
+      animation:pulseBG 12s infinite alternate; z-index:-1;
     }
     @keyframes pulseBG {
-      from { transform: scale(1); opacity: .6 }
-      to   { transform: scale(1.2); opacity: .3 }
+      from { transform:scale(1); opacity:.6 } to { transform:scale(1.2); opacity:.3 }
     }
     header h1 {
-      font-size: 3.6rem; color: var(--accent);
-      text-shadow: 0 0 20px var(--accent); margin-bottom: 1rem;
+      font-size: 3.6rem; color:var(--accent);
+      text-shadow:0 0 20px var(--accent); margin-bottom:1rem;
     }
     header p {
-      font-size: 1.2rem; max-width: 700px;
-      margin: 0 auto 2rem; color: var(--fg-muted);
+      font-size:1.2rem; max-width:700px;
+      margin:0 auto 2rem; color:var(--fg-muted);
     }
     .scroll-down {
-      font-size: 2rem; color: var(--accent);
-      animation: bounce 2.5s infinite; display: inline-block;
+      display:inline-block; margin-top:1rem;
+      font-size:2rem; color:var(--accent);
+      animation:bounce 2.5s infinite;
     }
     @keyframes bounce {
-      0%,100% { transform: translateY(0) }
-      50%     { transform: translateY(10px) }
+      0%,100%{ transform:translateY(0) }
+      50%    { transform:translateY(10px) }
     }
 
     /* Buttons */
     .btn {
-      display: inline-block; background: var(--accent);
-      color: #000; font-weight: 700; border-radius: var(--radius);
-      padding: 1rem 2rem; position: relative; overflow: hidden;
-      transition: var(--transition);
+      display:inline-block; background:var(--accent);
+      color:#000; font-weight:700; border-radius:var(--radius);
+      padding:1rem 2rem; position:relative; overflow:hidden;
+      transition:var(--transition);
     }
-    .btn:hover { transform: scale(1.05) }
+    .btn:hover { transform: scale(1.05); }
     .btn::after {
       content:""; position:absolute; top:50%; left:50%;
       width:0; height:0; background:rgba(0,0,0,0.1);
       border-radius:50%; transform:translate(-50%,-50%);
-      transition: width .4s ease, height .4s ease;
+      transition:width .4s ease, height .4s ease;
     }
-    .btn:active::after { width:200%; height:200%; transition:0s }
+    .btn:active::after { width:200%; height:200%; transition:0s; }
 
     /* Pricing Cards */
     .tiers {
-      display: grid; gap: 2rem; padding: 0 2rem;
-      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      display:grid; gap:2rem; padding:0 2rem;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
       max-width:1200px; margin:3rem auto;
     }
     .card {
@@ -98,8 +97,8 @@
     .card:hover .inner {
       transform:rotateX(3deg) rotateY(3deg);
     }
-    .card h3 { margin-bottom:.75rem; color:var(--accent) }
-    .card p  { margin-bottom:1rem; color:var(--fg-muted) }
+    .card h3 { margin-bottom:.75rem; color:var(--accent); }
+    .card p  { margin-bottom:1rem; color:var(--fg-muted); }
 
     /* Dashboard Widget */
     #widget-container {
@@ -126,14 +125,14 @@
     .terminal-input input {
       flex:1; background:#162029; border:none;
       border-radius:6px; color:#fff; padding:.8rem;
-      font-size:1rem; transition: border-color .2s ease;
+      font-size:1rem; transition:border-color .2s ease;
     }
     .cursor {
       display:inline-block; width:1ch;
       background:var(--fg); animation:blink .8s step-end infinite;
       margin-left:.2rem;
     }
-    @keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
     #suggestions {
       margin-top:.5rem; color:var(--fg-muted);
       font-size:.9rem; display:flex; flex-wrap:wrap;
@@ -148,8 +147,8 @@
     }
   </style>
 </head>
-
 <body>
+
   <header>
     <h1>🧬 Atlas OS — Sovereign Runtime</h1>
     <p>Command automation. Execute directives. Control your system at runtime.</p>
@@ -206,25 +205,32 @@
   <!-- Widget & Terminal Scripts -->
   <script src="assets/js/widget.min.js" defer></script>
   <script>
-    const API = window.NEXT_PUBLIC_API_ENDPOINT; 
+    const API = window.NEXT_PUBLIC_API_ENDPOINT;
+
     async function sendDirective() {
       const inp = document.getElementById('terminalInput');
       const log = document.getElementById('terminalLog');
       const cmd = inp.value.trim();
       if (!cmd) return;
 
+      // Clear error state
       inp.style.borderColor = '';
       log.insertAdjacentHTML('beforeend', `<div><strong>🧍 You:</strong> ${cmd}</div>`);
-      const loader = document.createElement('div'); loader.textContent='🕒 Executing…';
-      log.appendChild(loader); log.scrollTop = log.scrollHeight;
+
+      // Loader
+      const loader = document.createElement('div');
+      loader.textContent = '🕒 Executing…';
+      log.appendChild(loader);
+      log.scrollTop = log.scrollHeight;
 
       try {
         let res = await fetch(API, {
-          method:'POST', headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({command:cmd})
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({command: cmd})
         });
+        // Fallback to GET on 405
         if (res.status === 405) {
-          // fallback to GET
           res = await fetch(`${API}?command=${encodeURIComponent(cmd)}`);
         }
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -237,9 +243,11 @@
         loader.remove();
         log.insertAdjacentHTML('beforeend',
           `<div><strong>⚠️ Error:</strong> ${err.message}</div>`);
-        inp.style.borderColor='red';
+        inp.style.borderColor = 'red';
       }
-      log.scrollTop = log.scrollHeight; inp.value = '';
+
+      log.scrollTop = log.scrollHeight;
+      inp.value = '';
     }
 
     const suggestions = ['status','deploy core','help'];
@@ -256,22 +264,26 @@
 
     document.addEventListener("DOMContentLoaded", () => {
       Widget.init({
-        containerId:"widget-container",
-        theme:"dark",
-        apiKey:window.NEXT_PUBLIC_WIDGET_API_KEY
+        containerId: "widget-container",
+        theme: "dark",
+        apiKey: window.NEXT_PUBLIC_WIDGET_API_KEY
       });
       renderSuggestions();
-      ['dashboard','demo'].forEach((id,i)=>{
-        const el=document.getElementById(id);
-        el.style.transform = i? 'translateX(100vw)' : 'translateX(-100vw)';
-        el.style.transition='transform .6s ease';
+
+      // Slide-in
+      ['dashboard','demo'].forEach((id,i) => {
+        const el = document.getElementById(id);
+        el.style.transform = i ? 'translateX(100vw)' : 'translateX(-100vw)';
+        el.style.transition = 'transform .6s ease';
       });
-      setTimeout(()=>{
-        document.getElementById('dashboard').style.transform='translateX(0)';
-        document.getElementById('demo').style.transform='translateX(0)';
-      },200);
-      if(location.hash==="#demo"){
-        setTimeout(()=>document.getElementById("terminalInput").focus(),300);
+      setTimeout(() => {
+        document.getElementById('dashboard').style.transform = 'translateX(0)';
+        document.getElementById('demo').style.transform      = 'translateX(0)';
+      }, 200);
+
+      // Auto-focus post-checkout
+      if (location.hash === "#demo") {
+        setTimeout(() => document.getElementById("terminalInput").focus(), 300);
       }
     });
   </script>
