@@ -23,7 +23,7 @@
       --radius: 8px;
       --transition: 0.3s ease;
     }
-    * { box-sizing:border-box; margin:0; padding:0; }
+    * { box-sizing:border-box; margin:0; padding:0 }
     body {
       background: radial-gradient(circle at top, var(--bg-start), var(--bg-end));
       color: var(--fg);
@@ -32,7 +32,7 @@
       overflow-x: hidden;
       line-height: 1.5;
     }
-    a { color: inherit; text-decoration: none; }
+    a { color: inherit; text-decoration: none }
 
     /* Hero */
     header {
@@ -42,7 +42,8 @@
     header::before {
       content:""; position:absolute; inset:0;
       background: radial-gradient(circle, rgba(0,255,255,0.1), transparent);
-      animation: pulseBG 12s infinite alternate; z-index:-1;
+      animation: pulseBG 12s infinite alternate;
+      z-index:-1;
     }
     @keyframes pulseBG {
       from { transform: scale(1); opacity:.6 }
@@ -70,16 +71,16 @@
       display:inline-block; background:var(--accent);
       color:#000; font-weight:700; border-radius:var(--radius);
       padding:1rem 2rem; position:relative; overflow:hidden;
-      transition: var(--transition);
+      transition:var(--transition);
     }
-    .btn:hover { transform:scale(1.05); }
+    .btn:hover {transform:scale(1.05)}
     .btn::after {
       content:""; position:absolute; top:50%; left:50%;
       width:0; height:0; background:rgba(0,0,0,0.1);
       border-radius:50%; transform:translate(-50%,-50%);
       transition:width .4s ease, height .4s ease;
     }
-    .btn:active::after { width:200%; height:200%; transition:0s; }
+    .btn:active::after {width:200%; height:200%; transition:0s}
 
     /* Pricing cards */
     .tiers {
@@ -98,8 +99,8 @@
     .card:hover .inner {
       transform:rotateX(3deg) rotateY(3deg);
     }
-    .card h3 { margin-bottom:.75rem; color:var(--accent); }
-    .card p  { margin-bottom:1rem; color:var(--fg-muted); }
+    .card h3 {margin-bottom:.75rem;color:var(--accent)}
+    .card p {margin-bottom:1rem;color:var(--fg-muted)}
 
     /* Widget */
     #widget-container {
@@ -113,6 +114,7 @@
       max-width:1000px; margin:4rem auto 2rem;
       background:#0a1018; border:2px solid #0ff3;
       border-radius:var(--radius); padding:2rem;
+      transition:var(--transition);
     }
     .terminal-log {
       height:300px; background:#00070f; padding:1rem;
@@ -205,16 +207,20 @@
   <!-- Widget & Terminal Scripts -->
   <script src="assets/js/widget.min.js" defer></script>
   <script>
-    const API = window.NEXT_PUBLIC_API_ENDPOINT; // e.g. https://atlasos.org/api/execute
+    const API = window.NEXT_PUBLIC_API_ENDPOINT;
 
     async function sendDirective() {
       const inp = document.getElementById('terminalInput');
       const log = document.getElementById('terminalLog');
       const cmd = inp.value.trim();
       if (!cmd) return;
-      // Show user command
-      log.insertAdjacentHTML('beforeend', `<div><strong>🧍 You:</strong> ${cmd}</div>`);
-      // Loading indicator
+
+      // Remove previous error highlights
+      inp.style.borderColor = '';
+      log.insertAdjacentHTML('beforeend',
+        `<div><strong>🧍 You:</strong> ${cmd}</div>`);
+
+      // Loader
       const loader = document.createElement('div');
       loader.textContent = '🕒 Executing…';
       log.appendChild(loader);
@@ -223,17 +229,20 @@
       try {
         const res = await fetch(API, {
           method: 'POST',
-          headers: { 'Content-Type':'application/json' },
-          body: JSON.stringify({ command: cmd })
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({command: cmd})
         });
-        const { output } = await res.json();
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
         loader.remove();
+        const output = data.output ?? JSON.stringify(data);
         log.insertAdjacentHTML('beforeend',
           `<div><strong>🧠 Atlas:</strong> ${output}<span class="cursor"></span></div>`);
-      } catch (e) {
+      } catch (err) {
         loader.remove();
         log.insertAdjacentHTML('beforeend',
-          `<div><strong>⚠️ Error:</strong> ${e.message}</div>`);
+          `<div><strong>⚠️ Error:</strong> ${err.message}</div>`);
+        inp.style.borderColor = 'red';
       }
       log.scrollTop = log.scrollHeight;
       inp.value = '';
@@ -259,6 +268,7 @@
       });
       renderSuggestions();
 
+      // Slide‐in animations
       ['dashboard','demo'].forEach((id,i) => {
         const el = document.getElementById(id);
         el.style.transform = i===0 ? 'translateX(-100vw)' : 'translateX(100vw)';
@@ -269,6 +279,7 @@
         document.getElementById('demo').style.transform      = 'translateX(0)';
       }, 200);
 
+      // Auto‐focus after checkout
       if (location.hash === "#demo") {
         setTimeout(() => document.getElementById("terminalInput").focus(), 300);
       }
