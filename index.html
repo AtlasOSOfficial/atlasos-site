@@ -2,35 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AtlasOS Reflex Console</title>
+  <title>AtlasOS – Sovereign Console</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
-      background: radial-gradient(ellipse at center, #000 0%, #020202 100%);
-      color: #0f0;
+      margin: 0;
       font-family: monospace;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    h1 {
-      color: #0ff;
-      margin-bottom: 1rem;
-    }
-    textarea, input {
-      width: 100%;
-      max-width: 900px;
       background: #000;
-      color: #0f0;
-      border: 1px solid #0f0;
-      padding: 1rem;
-      font-family: monospace;
-      margin-bottom: 1rem;
-      resize: none;
+      color: #0ff;
     }
-    button {
-      padding: 0.75rem 1.5rem;
+    header {
+      text-align: center;
+      padding: 2rem;
+      background: #0a0a0a;
+    }
+    .chatbox {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #111;
+      padding: 1rem;
+      border: 1px solid #0ff;
+    }
+    .chatlog {
+      height: 300px;
+      overflow-y: auto;
+      background: #000;
+      padding: 1rem;
+      border: 1px solid #0f0;
+      margin-bottom: 1rem;
+    }
+    .plans {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .plan {
+      border: 1px solid #0ff;
+      padding: 1rem;
+      width: 250px;
+      background: #111;
+    }
+    .plan button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
       background: #0f0;
       color: #000;
       font-weight: bold;
@@ -40,81 +56,61 @@
   </style>
 </head>
 <body>
-  <h1>🛸 AtlasOS Reflex Console</h1>
-  <textarea id="output" rows="20" readonly>🧬 AtlasOS Reflex Terminal Online
-Type "help" to begin.</textarea>
-  <input id="command" placeholder="> Enter command" />
-  <button onclick="runCommand()">Run</button>
+  <header>
+    <h1>🛸 AtlasOS</h1>
+    <p>The sovereign OS for infinite scalability and reflexivity.</p>
+  </header>
+
+  <div class="chatbox">
+    <div id="chatlog" class="chatlog">🧬 AtlasOS Reflex Chat Online</div>
+    <input id="chatinput" placeholder="> Ask Atlas..." style="width:100%;padding:1rem;" />
+    <button onclick="sendChat()">Send</button>
+  </div>
+
+  <div class="plans">
+    <div class="plan">
+      <h2>Starter</h2>
+      <p>Basic Reflex Console</p>
+      <button onclick="location.href='https://buy.stripe.com/8x29ALfC5dYx6Om86O4Rq03'">Activate</button>
+    </div>
+    <div class="plan">
+      <h2>Pro</h2>
+      <p>Memory sync + advanced commands</p>
+      <button onclick="location.href='https://buy.stripe.com/fZu7sDfC5f2B6Om2Mu4Rq01'">Activate</button>
+    </div>
+    <div class="plan">
+      <h2>Elite</h2>
+      <p>Full reflex stack + AI integration</p>
+      <button onclick="location.href='https://buy.stripe.com/9B6bITahLg6Fb4Ccn44Rq02'">Activate</button>
+    </div>
+  </div>
 
   <script>
-    const output = document.getElementById('output');
-    const input = document.getElementById('command');
+    const chatlog = document.getElementById('chatlog');
+    const chatinput = document.getElementById('chatinput');
 
-    const append = (text) => {
-      output.value += '\\n' + text;
-      output.scrollTop = output.scrollHeight;
+    const sendChat = () => {
+      const msg = chatinput.value.trim();
+      if (!msg) return;
+      chatlog.innerHTML += `<div>> ${msg}</div>`;
+      chatinput.value = '';
+      setTimeout(() => {
+        chatlog.innerHTML += `<div>🤖 Atlas: ${generateResponse(msg)}</div>`;
+        chatlog.scrollTop = chatlog.scrollHeight;
+      }, 500);
     };
 
-    const interpret = async (cmd) => {
-      const c = cmd.trim().toLowerCase();
-      if (c === 'help') return `Available commands:
-• status        :: system overview
-• launch        :: hard launch
-• memory        :: last command
-• starter       :: activate Starter tier
-• pro           :: activate Pro tier
-• elite         :: activate Elite tier
-• clear         :: wipe terminal
-• echo [text]   :: repeat text
-• help          :: show this menu`;
-      if (c === 'status') return '🧠 Reflex Status: LINKED\\n📡 COSMIC SALT active\\n💾 Memory sync enabled';
-      if (c === 'launch') return '🚀 AtlasOS launch sequence triggered.';
-      if (c === 'memory') return '💾 ' + (localStorage.getItem('reflex-last') || '[none]');
-      if (c === 'clear') {
-        output.value = '';
-        return '';
-      }
-      if (c.startsWith('echo ')) return c.slice(5);
-      if (c === 'starter') {
-        localStorage.setItem('reflex-plan', 'STARTER');
-        append('⏳ Redirecting to STARTER checkout...');
-        window.location.href = 'https://buy.stripe.com/8x29ALfC5dYx6Om86O4Rq03';
-        return '';
-      }
-      if (c === 'pro') {
-        localStorage.setItem('reflex-plan', 'PRO');
-        append('⏳ Redirecting to PRO checkout...');
-        window.location.href = 'https://buy.stripe.com/fZu7sDfC5f2B6Om2Mu4Rq01';
-        return '';
-      }
-      if (c === 'elite') {
-        localStorage.setItem('reflex-plan', 'ELITE');
-        append('⏳ Redirecting to ELITE checkout...');
-        window.location.href = 'https://buy.stripe.com/9B6bITahLg6Fb4Ccn44Rq02';
-        return '';
-      }
-      return '⚠️ Unknown command. Type "help".';
+    const generateResponse = (msg) => {
+      if (msg.toLowerCase().includes('help')) return 'Try asking about plans, reflex, or sovereignty.';
+      if (msg.toLowerCase().includes('starter')) return 'Starter gives you access to the basic terminal.';
+      if (msg.toLowerCase().includes('pro')) return 'Pro unlocks memory sync and advanced commands.';
+      if (msg.toLowerCase().includes('elite')) return 'Elite gives you full reflex stack + AI integration.';
+      return 'AtlasOS is listening...';
     };
 
-    const runCommand = async () => {
-      const cmd = input.value;
-      if (!cmd.trim()) return;
-      localStorage.setItem('reflex-last', cmd);
-      append('> ' + cmd);
-      const result = await interpret(cmd);
-      if (result) append(result);
-      input.value = '';
-    };
-
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') runCommand();
+    chatinput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') sendChat();
     });
-
-    // Restore memory
-    const last = localStorage.getItem('reflex-last');
-    const plan = localStorage.getItem('reflex-plan');
-    if (last) append('🧠 Last Command: ' + last);
-    if (plan) append('✅ Active Plan: ' + plan);
   </script>
 </body>
 </html>
