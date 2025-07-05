@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/starter", "dest": "/index.html?plan=starter" },
+    { "src": "/pro",     "dest": "/index.html?plan=pro"     },
+    { "src": "/elite",   "dest": "/index.html?plan=elite"   },
+    { "src": "/(.*)",    "dest": "/index.html"              }
+  ]
+}
