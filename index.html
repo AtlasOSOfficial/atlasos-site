@@ -1,29 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>🌐 Atlas OS Is Live</title>
-  <link rel="stylesheet" href="assets/styles.css">
-  <link rel="icon" href="assets/favicon.ico">
-  <script src="https://js.stripe.com/v3/"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🧬 Atlas OS — Sovereign Runtime</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="icon" href="assets/favicon.ico" />
 </head>
 <body>
+
   <header class="hero">
-    <h1>🌐 Atlas OS Is Live</h1>
-    <p>Welcome to the sovereign execution layer of Overseer.exe</p>
-    <button id="buy-button" class="btn buy">Buy Access</button>
+    <h1>🧬 Atlas OS — Sovereign Runtime</h1>
+    <p>High-performance AI execution interface: instant directives, full runtime control, and scalable automation pipelines.</p>
+    <div class="buttons">
+      <a href="/demo" class="btn free">
+        🆓 Free Mode<br>
+        <span>Instant access to the Atlas Protocol shell — no signup required.</span>
+      </a>
+      <a href="https://buy.stripe.com/8x29ALfC5dYx6Om86O4Rq03" class="btn starter">
+        ✨ Starter — $9/mo<br>
+        <span>Entry-level access for tinkerers.</span>
+      </a>
+      <a href="https://buy.stripe.com/9B6bITahLg6Fb4Ccn44Rq02" class="btn core">
+        ⚡ Pro — $29/mo<br>
+        <span>Enhanced commands for solo engineers.</span>
+      </a>
+      <a href="https://buy.stripe.com/fZu7sDfC5f2B6Om2Mu4Rq01" class="btn sovereign">
+        🚀 Elite — $99/mo<br>
+        <span>Complete AI interface with memory, monetization hooks, SystemLink control.</span>
+      </a>
+    </div>
   </header>
+
+  <section class="terminal">
+    <pre>💬 Atlas Protocol Terminal
+🧠 Atlas: Sovereign runtime active. Awaiting directives…
+e.g. deploy system core
+Execute</pre>
+  </section>
+
   <footer class="site-footer">
     <p>© 2025 Atlas Industries · Overseer.exe · SystemLink v1.0 · Sovereign Runtime Online</p>
   </footer>
-  <script>
-    const stripe = Stripe('pk_live_YOUR_PUBLISHABLE_KEY');
-    document.getElementById('buy-button').addEventListener('click', () => {
-      fetch('/api/create-checkout-session', { method: 'POST' })
-        .then(res => res.json())
-        .then(({id}) => stripe.redirectToCheckout({ sessionId: id }));
-    });
-  </script>
+
 </body>
 </html>
+
