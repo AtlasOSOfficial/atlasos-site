@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>🧬 Atlas OS — Sovereign Runtime</title>
   <link rel="icon" href="assets/favicon.ico"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet"/>
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" 
+    rel="stylesheet"/>
+
   <style>
     :root {
       --purple: #7e5bef;
@@ -17,98 +20,155 @@
     }
     [data-theme="dark"] { --bg: var(--bg-dark); --text: var(--text-light); }
     [data-theme="light"] { --bg: var(--bg-light); --text: var(--text-dark); }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background: var(--bg);
       color: var(--text);
       font-family: 'Inter', sans-serif;
-      display: flex; flex-direction: column;
-      min-height: 100vh; overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
+
+    /* Starfield */
     #starfield {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%; z-index: -1;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
     }
+
+    /* Theme toggle */
     .theme-toggle {
-      position: fixed; top: 1rem; right: 1rem;
-      background: none; border: 2px solid var(--text);
-      border-radius: 999px; padding: 0.5rem;
-      cursor: pointer; color: var(--text);
-      font-size: 1.25rem; z-index: 2;
+      position: fixed;
+      top: 1rem; right: 1rem;
+      background: none;
+      border: 2px solid var(--text);
+      border-radius: 999px;
+      padding: 0.5rem;
+      color: var(--text);
+      font-size: 1.25rem;
+      cursor: pointer;
+      z-index: 2;
     }
+
+    /* Hero */
     .hero {
-      text-align: center; padding: 5rem 1rem;
+      text-align: center;
+      padding: 5rem 1rem;
       background: linear-gradient(135deg, var(--purple), var(--teal));
-      color: #fff; animation: fadeIn 1s ease-out;
+      color: #fff;
+      animation: fadeIn 1s ease-out;
     }
     .hero h1 {
-      font-size: 3.25rem; margin-bottom: 0.5rem;
+      font-size: 3.25rem;
+      margin-bottom: 0.5rem;
       animation: popIn 0.8s ease-out;
     }
     .hero p {
-      font-size: 1.125rem; max-width: 640px;
-      margin: auto; opacity: 0.9; line-height: 1.4;
+      font-size: 1.125rem;
+      max-width: 640px;
+      margin: auto;
+      opacity: 0.9;
+      line-height: 1.4;
     }
+
+    /* Plans grid */
     .buttons {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1rem; margin-top: 3rem;
+      grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+      gap: 1rem;
+      margin-top: 3rem;
     }
     .btn-plan {
-      background: #fff; color: #1a1a1a;
-      border-radius: 0.75rem; padding: 1rem;
-      text-align: center; text-decoration: none;
-      font-weight: 600; transition: transform 0.2s, box-shadow 0.2s;
+      background: #fff;
+      color: #1a1a1a;
+      border-radius: 0.75rem;
+      padding: 1rem;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 600;
       position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
     .btn-plan.free {
-      background: rgba(255,255,255,0.2); color: #fff;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
     }
     .btn-plan.sovereign {
-      box-shadow: 0 0 12px rgba(255,255,255,0.25),
-                  inset 0 0 12px rgba(120,255,214,0.15);
+      box-shadow:
+        0 0 12px rgba(255,255,255,0.25),
+        inset 0 0 12px rgba(120,255,214,0.15);
       backdrop-filter: blur(4px);
     }
     .btn-plan::before {
-      content: ''; position: absolute; inset: 0;
-      border-radius: 0.75rem;
-      background: radial-gradient(circle at top left, rgba(255,255,255,0.3), transparent);
-      opacity: 0; transition: opacity 0.3s;
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at top left,
+        rgba(255,255,255,0.3), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
     }
     .btn-plan:hover {
       transform: translateY(-6px);
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
-    .btn-plan:hover::before { opacity: 1 }
-    .btn-plan span {
-      display: block; margin-top: 0.5rem;
-      font-size: 0.875rem; opacity: 0.8; font-weight: 400;
+    .btn-plan:hover::before {
+      opacity: 1;
     }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes popIn { from { transform: scale(0.8); } to { transform: scale(1); } }
+    .btn-plan span {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      opacity: 0.8;
+      font-weight: 400;
+    }
+
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    @keyframes popIn { from{transform:scale(0.8)} to{transform:scale(1)} }
+
+    /* Terminal */
     .terminal {
-      background: #1e1e1e; color: #d4d4d4;
+      background: #1e1e1e;
+      color: #d4d4d4;
       font-family: 'Fira Code', monospace;
-      margin: 2rem auto; padding: 1rem;
-      border-radius: 0.5rem; max-width: 700px;
+      margin: 2rem auto;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      max-width: 700px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
     .terminal-content {
-      outline: none; white-space: pre-wrap; word-wrap: break-word;
+      outline: none;
+      white-space: pre-wrap;
+      word-wrap: break-word;
     }
     .cursor {
-      display: inline-block; width: 8px; background: var(--text);
-      margin-left: 2px; vertical-align: bottom;
+      display: inline-block;
+      width: 8px;
+      background: var(--text);
+      margin-left: 2px;
+      vertical-align: bottom;
       animation: blink 1s step-start infinite;
     }
-    @keyframes blink { 50% { opacity: 0; } }
+    @keyframes blink { 50%{opacity:0} }
+
+    /* Footer */
     .site-footer {
-      text-align: center; margin-top: auto;
-      padding: 2rem 1rem; font-size: 0.875rem; opacity: 0.7;
+      text-align: center;
+      margin-top: auto;
+      padding: 2rem 1rem;
+      font-size: 0.875rem;
+      opacity: 0.7;
     }
-    @media(min-width: 600px) {
-      .hero h1 { font-size: 3.75rem; }
-      .btn-plan { width: 200px; }
+
+    @media(min-width:600px){
+      .hero h1 { font-size:3.75rem; }
+      .btn-plan { width:200px; }
     }
   </style>
 </head>
@@ -129,11 +189,11 @@
         ✨ Starter — $9/mo
         <span>Entry-level access for tinkerers.</span>
       </a>
-      <a href="https://buy.stripe.com/9B6bITahLg6Fb4Ccn44Rq02" class="btn-plan core">
+      <a href="https://buy.stripe.com/fZu7sDfC5f2B6Om2Mu4Rq01" class="btn-plan core">
         ⚡ Pro — $29/mo
         <span>Enhanced commands for solo engineers.</span>
       </a>
-      <a href="https://buy.stripe.com/fZu7sDfC5f2B6Om2Mu4Rq01" class="btn-plan sovereign">
+      <a href="https://buy.stripe.com/9B6bITahLg6Fb4Ccn44Rq02" class="btn-plan sovereign">
         🚀 Elite — $99/mo
         <span>Full AI interface & SystemLink control.</span>
       </a>
@@ -145,30 +205,40 @@
   </section>
 
   <footer class="site-footer">
-    <p>© 2025 Atlas Industries · Overseer.exe · SystemLink v1.0 · Sovereign Runtime Online</p>
+    © 2025 Atlas Industries · Overseer.exe · SystemLink v1.0 · Sovereign Runtime Online
   </footer>
 
   <script>
     // Starfield
     const canvas = document.getElementById('starfield'),
           ctx = canvas.getContext('2d');
-    const resize = () => { canvas.width = innerWidth; canvas.height = innerHeight; };
-    window.onresize = resize; resize();
+    const resize = () => {
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+    };
+    window.onresize = resize;
+    resize();
+
     const stars = Array.from({ length: 200 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 1.2 + 0.2,
-      vx: (Math.random() - 0.5) * 0.1,
-      vy: (Math.random() - 0.5) * 0.1
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      r: Math.random()*1.2+0.2,
+      vx: (Math.random()-0.5)*0.1,
+      vy: (Math.random()-0.5)*0.1
     }));
+
     function animate() {
-      ctx.fillStyle = 'rgba(0,0,0,0.3)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'rgba(0,0,0,0.3)';
+      ctx.fillRect(0,0,canvas.width,canvas.height);
       stars.forEach(s => {
-        s.x += s.vx; s.y += s.vy;
-        if (s.x < 0 || s.x > canvas.width) s.vx *= -1;
-        if (s.y < 0 || s.y > canvas.height) s.vy *= -1;
-        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
-        ctx.fillStyle = '#fff'; ctx.fill();
+        s.x += s.vx;
+        s.y += s.vy;
+        if(s.x < 0 || s.x > canvas.width) s.vx *= -1;
+        if(s.y < 0 || s.y > canvas.height) s.vy *= -1;
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,s.r,0,2*Math.PI);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
       });
       requestAnimationFrame(animate);
     }
@@ -176,21 +246,26 @@
 
     // Theme toggle
     document.querySelector('.theme-toggle').onclick = () => {
-      const root = document.documentElement;
-      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      const rt = document.documentElement;
+      rt.dataset.theme = rt.dataset.theme === 'dark' ? 'light' : 'dark';
     };
 
-    // Interactive terminal + AI prompts
+    // Interactive terminal with Outerworld prompts
     const term = document.querySelector('.terminal-content'),
           cursor = document.createElement('span');
     cursor.className = 'cursor';
 
-    const suggestions = [
-      '🧠 Atlas: Try `deploy core` to initialize protocol layer.',
-      '🧠 Atlas: Type `status` to view SystemLink runtime health.',
-      '🧠 Atlas: Use `unlock elite` to access monetization matrix.'
+    const intro = [
+      'Kernel v1.2.3 loaded … ✅',
+      'SystemLink: Establishing quantum channel … ✅',
+      'Outworld AI: Synced with cosmic node … 🛰️'
     ];
-    let idx = 0;
+    const suggestions = [
+      'Type `deploy core` to initialize protocol layer.',
+      'Type `status` to audit Atlas health modules.',
+      'Type `unlock elite` to activate monetization matrix.'
+    ];
+    let idx = 0, phase = 0;
 
     function appendLine(txt) {
       const d = document.createElement('div');
@@ -198,36 +273,61 @@
       term.parentNode.insertBefore(d, term);
     }
 
-    function appendPrompt() {
+    function showPrompt() {
       term.textContent = 'atlasos> ';
       term.appendChild(cursor);
-      const sel = window.getSelection(),
-            rng = document.createRange();
-      rng.selectNodeContents(term);
-      rng.collapse(false);
-      sel.removeAllRanges();
-      sel.addRange(rng);
+      const sel = window.getSelection(), rng = document.createRange();
+      rng.selectNodeContents(term); rng.collapse(false);
+      sel.removeAllRanges(); sel.addRange(rng);
     }
 
+    function runIntro() {
+      if (idx < intro.length) {
+        appendLine(intro[idx++]);
+        setTimeout(runIntro, 1000);
+      } else {
+        phase = 1; idx = 0;
+        runSuggestions();
+      }
+    }
     function runSuggestions() {
       if (idx < suggestions.length) {
-        appendLine(suggestions[idx++]);
-        setTimeout(runSuggestions, 2000);
+        appendLine('🧠 ' + suggestions[idx++]);
+        setTimeout(runSuggestions, 1500);
       } else {
-        appendPrompt();
+        showPrompt();
       }
     }
 
     term.addEventListener('keypress', e => {
       if (e.key === 'Enter') {
         e.preventDefault();
-        const cmd = term.textContent.replace('atlasos> ', '').trim();
-        appendLine(`Executing: ${cmd}`);
-        appendPrompt();
+        const cmd = term.textContent.replace('atlasos> ', '').trim().toLowerCase();
+        let out;
+        switch (cmd) {
+          case 'deploy core':
+            out = '⚙️ Core modules deployed. Protocol stack online.';
+            break;
+          case 'status':
+            out = '🧬 SystemLink stable. Kernel heartbeat steady.';
+            break;
+          case 'unlock elite':
+            out = '🚀 Monetization engine active. Memory modules unlocked.';
+            break;
+          case 'clear':
+            document.querySelectorAll('.terminal-content, .terminal div').forEach(n => {
+              if (n !== term) n.remove();
+            });
+            return showPrompt();
+          default:
+            out = `❓ Unknown directive: "${cmd}"`;
+        }
+        appendLine(out);
+        showPrompt();
       }
     });
 
-    runSuggestions();
+    runIntro();
   </script>
 </body>
 </html>
