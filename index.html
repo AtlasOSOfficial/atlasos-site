@@ -3,20 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Atlas OS is a sovereign AI operating system for founders, engineers, and execution-layer architects. Launch autonomy. Build smarter. Own your future." />
+  <meta name="description" content="Atlas OS is a sovereign AI-native operating system for founders, engineers, and execution-layer architects. Launch autonomy. Build smarter. Own your future." />
   <meta name="theme-color" content="#000000" />
-  <meta property="og:title" content="Atlas OS — Sovereign Command Engine" />
-  <meta property="og:description" content="Atlas OS is your AI-native stack designed for infinite scalability, reflexivity, and control." />
-  <meta property="og:image" content="https://atlasos.org/assets/atlas-banner.png" />
-  <meta property="og:url" content="https://atlasos.org/" />
   <title>Atlas OS — Sovereign Command Engine</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" media="all" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       background: radial-gradient(circle at top, #0d1117 0%, #000000 100%);
@@ -56,31 +50,27 @@
       transition: all 0.2s ease-in-out;
       box-shadow: 0 0 18px rgba(0, 255, 255, 0.16);
     }
-    .buy {
-      background: linear-gradient(135deg, #00ffe0, #0077ff);
-      color: black;
-    }
-    .buy:hover {
-      background: #00c7a0;
+    .starter { background: linear-gradient(135deg, #00ffe0, #0077ff); color: black; }
+    .pro { background: linear-gradient(135deg, #ff00c8, #7700ff); color: black; }
+    .elite { background: linear-gradient(135deg, #ffae00, #ff5500); color: black; }
+    .cta a:hover {
       transform: scale(1.06);
+      filter: brightness(1.1);
     }
-    .demo, .preview {
-      background: #21262d;
-      color: white;
-    }
-    .demo:hover, .preview:hover {
-      background: #2f363e;
-      transform: scale(1.06);
-    }
-    iframe {
-      width: 100%;
-      max-width: 900px;
-      height: 480px;
-      border: none;
+    .terminal {
+      background: #0d1117;
+      border: 1px solid #21262d;
       border-radius: 12px;
-      box-shadow: 0 0 25px rgba(255,255,255,0.05);
+      padding: 1.5rem;
+      max-width: 900px;
       margin: 0 auto 3rem;
-      display: block;
+      font-family: monospace;
+      text-align: left;
+      color: #00ffe0;
+      box-shadow: 0 0 25px rgba(255,255,255,0.05);
+    }
+    .terminal span {
+      color: #f0f6fc;
     }
     footer {
       font-size: 0.85rem;
@@ -88,16 +78,9 @@
       padding: 2rem 1rem 3rem;
     }
     @media (max-width: 600px) {
-      h1 {
-        font-size: 2.4rem;
-      }
-      p {
-        font-size: 1rem;
-      }
-      .cta a {
-        font-size: 0.95rem;
-        padding: 0.8rem 1.4rem;
-      }
+      h1 { font-size: 2.4rem; }
+      p { font-size: 1rem; }
+      .cta a { font-size: 0.95rem; padding: 0.8rem 1.4rem; }
     }
   </style>
 </head>
@@ -106,13 +89,18 @@
     <h1>🚀 Atlas OS Is Now Live</h1>
     <p>Atlas OS is the sovereign AI-native operating system crafted for founders, engineers, and execution-layer architects.<br/>Launch autonomy. Automate command. Own your stack.</p>
     <div class="cta">
-      <a class="buy" href="https://buy.stripe.com/fZe7uS9zL9nH23e5kl" target="_blank" rel="noopener">⚡ Buy Access ($29)</a>
-      <a class="demo" href="https://atlasos.org/demo" target="_blank" rel="noopener">🔍 Try Demo Mode</a>
-      <a class="preview" href="https://atlasos.org/preview" target="_blank" rel="noopener">🎬 Watch Preview</a>
+      <a class="starter" href="https://buy.stripe.com/8x29ALfC5dYx6Om86O4Rq03" target="_blank" rel="noopener">⚡ Starter — Core Access ($29)</a>
+      <a class="pro" href="https://buy.stripe.com/fZu7sDfC5f2B6Om2Mu4Rq01" target="_blank" rel="noopener">🚀 Pro — Sovereign Stack ($79)</a>
+      <a class="elite" href="https://buy.stripe.com/9B6bITahLg6Fb4Ccn44Rq02" target="_blank" rel="noopener">🧠 Elite — Reflexive Engine ($199)</a>
     </div>
   </header>
 
-  <iframe src="https://atlasos.org/demo" loading="lazy" title="Atlas OS Demo"></iframe>
+  <div class="terminal">
+    <span>atlas@os:~$</span> <span>initialize --sovereign-mode</span><br/>
+    <span>atlas@os:~$</span> <span>deploy --autonomy --reflexivity --infinite-scale</span><br/>
+    <span>atlas@os:~$</span> <span>status --live</span><br/>
+    <span>✅ Atlas OS is now active and publicly launched.</span>
+  </div>
 
   <footer>
     © 2025 Atlas Industries — Overseer.exe Protocol | Sovereign Engine v1.1 Initialized
