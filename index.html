@@ -1,81 +1,120 @@
 <!DOCTYPE html>
-<html lang="en" class="reflex">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#00ffe0" />
-    <meta name="description" content="AtlasOS — the sovereign execution engine for founders. Reflex-synced, monetized, and deployable in one breath." />
-    <meta name="keywords" content="AtlasOS, Reflex Shell, Sovereign Runtime, Stripe Checkout, Git Index, Vault Memory, Launch OS, Founders OS" />
-    <meta name="author" content="AtlasOSOfficial" />
-    <meta property="og:title" content="AtlasOS — Reflex Runtime" />
-    <meta property="og:description" content="Reflex Shell • Vault Memory • Monetized Runtime" />
-    <meta property="og:image" content="/og-image.png" />
-    <meta property="og:url" content="https://atlasos.org" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <title>AtlasOS — Sovereign Reflex Runtime</title>
-    <style>
-      :root {
-        --atlas-bg: #0f0f0f;
-        --atlas-fg: #ffffff;
-        --atlas-accent: #00ffe0;
-        --atlas-danger: #ff0077;
-        --atlas-font: 'AtlasMono', monospace;
-      }
-      body {
-        margin: 0;
-        background-color: var(--atlas-bg);
-        color: var(--atlas-fg);
-        font-family: var(--atlas-font);
-        overflow-x: hidden;
-      }
-      #app {
-        isolation: isolate;
-      }
-      ::selection {
-        background: var(--atlas-accent);
-        color: var(--atlas-bg);
-      }
-      .reflex-button {
-        background: var(--atlas-accent);
-        color: var(--atlas-bg);
-        border: none;
-        padding: 0.75rem 1.5rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: transform 0.2s ease;
-      }
-      .reflex-button:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 10px var(--atlas-accent);
-      }
-    </style>
-  </head>
-  <body>
-    <div id="app"></div>
-    <noscript>
-      <strong>AtlasOS requires JavaScript to launch the reflex runtime.</strong>
-    </noscript>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AtlasOS Reflex Console</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      background: radial-gradient(ellipse at center, #000 0%, #020202 100%);
+      color: #0f0;
+      font-family: monospace;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #0ff;
+      margin-bottom: 1rem;
+    }
+    textarea, input {
+      width: 100%;
+      max-width: 900px;
+      background: #000;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 1rem;
+      font-family: monospace;
+      margin-bottom: 1rem;
+      resize: none;
+    }
+    button {
+      padding: 0.75rem 1.5rem;
+      background: #0f0;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🛸 AtlasOS Reflex Console</h1>
+  <textarea id="output" rows="20" readonly>🧬 AtlasOS Reflex Terminal Online
+Type "help" to begin.</textarea>
+  <input id="command" placeholder="> Enter command" />
+  <button onclick="runCommand()">Run</button>
 
-    <script type="module" src="/src/main.tsx"></script>
+  <script>
+    const output = document.getElementById('output');
+    const input = document.getElementById('command');
 
-    <script>
-      // Reflex telemetry ping
-      window.addEventListener('load', () => {
-        fetch('/api/telemetry', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ event: 'page_load', timestamp: Date.now() })
-        });
-      });
+    const append = (text) => {
+      output.value += '\\n' + text;
+      output.scrollTop = output.scrollHeight;
+    };
 
-      // Optional: auto-focus console input
-      window.addEventListener('DOMContentLoaded', () => {
-        const input = document.querySelector('input[data-reflex="console"]');
-        if (input) input.focus();
-      });
-    </script>
-  </body>
+    const interpret = async (cmd) => {
+      const c = cmd.trim().toLowerCase();
+      if (c === 'help') return `Available commands:
+• status        :: system overview
+• launch        :: hard launch
+• memory        :: last command
+• starter       :: activate Starter tier
+• pro           :: activate Pro tier
+• elite         :: activate Elite tier
+• clear         :: wipe terminal
+• echo [text]   :: repeat text
+• help          :: show this menu`;
+      if (c === 'status') return '🧠 Reflex Status: LINKED\\n📡 COSMIC SALT active\\n💾 Memory sync enabled';
+      if (c === 'launch') return '🚀 AtlasOS launch sequence triggered.';
+      if (c === 'memory') return '💾 ' + (localStorage.getItem('reflex-last') || '[none]');
+      if (c === 'clear') {
+        output.value = '';
+        return '';
+      }
+      if (c.startsWith('echo ')) return c.slice(5);
+      if (c === 'starter') {
+        localStorage.setItem('reflex-plan', 'STARTER');
+        append('⏳ Redirecting to STARTER checkout...');
+        window.location.href = 'https://buy.stripe.com/8x29ALfC5dYx6Om86O4Rq03';
+        return '';
+      }
+      if (c === 'pro') {
+        localStorage.setItem('reflex-plan', 'PRO');
+        append('⏳ Redirecting to PRO checkout...');
+        window.location.href = 'https://buy.stripe.com/fZu7sDfC5f2B6Om2Mu4Rq01';
+        return '';
+      }
+      if (c === 'elite') {
+        localStorage.setItem('reflex-plan', 'ELITE');
+        append('⏳ Redirecting to ELITE checkout...');
+        window.location.href = 'https://buy.stripe.com/9B6bITahLg6Fb4Ccn44Rq02';
+        return '';
+      }
+      return '⚠️ Unknown command. Type "help".';
+    };
+
+    const runCommand = async () => {
+      const cmd = input.value;
+      if (!cmd.trim()) return;
+      localStorage.setItem('reflex-last', cmd);
+      append('> ' + cmd);
+      const result = await interpret(cmd);
+      if (result) append(result);
+      input.value = '';
+    };
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') runCommand();
+    });
+
+    // Restore memory
+    const last = localStorage.getItem('reflex-last');
+    const plan = localStorage.getItem('reflex-plan');
+    if (last) append('🧠 Last Command: ' + last);
+    if (plan) append('✅ Active Plan: ' + plan);
+  </script>
+</body>
 </html>
-
