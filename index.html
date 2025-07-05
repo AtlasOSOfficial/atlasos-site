@@ -28,7 +28,22 @@
       text-align: center;
       overflow-x: hidden;
     }
-    header { padding: 6rem 2rem 2rem; }
+    header {
+      padding: 6rem 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: "";
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle, rgba(0,255,255,0.1), transparent);
+      animation: pulseBG 10s infinite alternate;
+      z-index: -1;
+    }
+    @keyframes pulseBG {
+      from { transform: scale(1); opacity: 0.6 }
+      to   { transform: scale(1.2); opacity: 0.3 }
+    }
     header h1 {
       font-size: 3.4rem;
       color: var(--accent);
@@ -50,6 +65,21 @@
       text-decoration: none;
       display: inline-block;
       margin-top: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::after {
+      content: "";
+      position: absolute; top: 50%; left: 50%;
+      width: 0; height: 0;
+      background: rgba(0,0,0,0.1);
+      border-radius: 100%;
+      transform: translate(-50%, -50%);
+      transition: width 0.4s ease, height 0.4s ease;
+    }
+    .btn:active::after {
+      width: 200%; height: 200%;
+      transition: 0s;
     }
     .tiers {
       display: grid;
@@ -64,9 +94,15 @@
       border: 2px solid var(--accent);
       border-radius: 14px;
       padding: 2rem;
+      perspective: 500px;
+    }
+    .card .inner {
+      transform-style: preserve-3d;
       transition: transform 0.2s ease;
     }
-    .card:hover { transform: translateY(-6px); }
+    .card:hover .inner {
+      transform: rotateX(3deg) rotateY(3deg);
+    }
     #widget-container {
       width: 90%; max-width: 800px; height: 400px;
       margin: 4rem auto; border-radius: 8px;
@@ -113,6 +149,16 @@
       transition: transform 0.2s ease;
     }
     .terminal-input button:hover { transform: scale(1.03); }
+    .cursor {
+      display: inline-block;
+      width: 1ch;
+      background: var(--fg-light);
+      animation: blink 0.8s step-end infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity: 1 }
+      50%     { opacity: 0 }
+    }
     footer {
       padding: 3rem 1rem;
       font-size: 0.9rem;
@@ -128,26 +174,26 @@
   </header>
 
   <div class="tiers">
-    <div class="card">
+    <div class="card"><div class="inner">
       <h3>🆓 Free Mode</h3>
       <p>Instant access to the Atlas Protocol shell — no signup required.</p>
       <a href="#demo" class="btn">Enter Demo</a>
-    </div>
-    <div class="card">
+    </div></div>
+    <div class="card"><div class="inner">
       <h3>⭐ Starter — $9/mo</h3>
       <p>Basic runtime commands and core automation.</p>
       <a href="https://buy.stripe.com/8x29ALfC5dYx6Om86O4Rq03" class="btn" target="_blank">Activate Starter</a>
-    </div>
-    <div class="card">
+    </div></div>
+    <div class="card"><div class="inner">
       <h3>⚡ Pro — $29/mo</h3>
       <p>Expanded command set, priority support, collaboration tools.</p>
       <a href="https://buy.stripe.com/fZu7sDfC5f2B6Om2Mu4Rq01" class="btn" target="_blank">Activate Pro</a>
-    </div>
-    <div class="card">
+    </div></div>
+    <div class="card"><div class="inner">
       <h3>🚀 Elite — $99/mo</h3>
       <p>Full AI interface with memory, monetization hooks, and SystemLink control.</p>
       <a href="https://buy.stripe.com/9B6bITahLg6Fb4Ccn44Rq02" class="btn" target="_blank">Activate Elite</a>
-    </div>
+    </div></div>
   </div>
 
   <section id="dashboard">
@@ -155,21 +201,7 @@
     <div id="widget-container"></div>
   </section>
 
-  <section id="demo" class="terminal">
-    <h2>💬 Atlas Protocol Terminal</h2>
-    <div class="terminal-log" id="terminalLog">
-      <div><strong>🧠 Atlas:</strong> Sovereign runtime active. Awaiting directives...</div>
-    </div>
-    <div class="terminal-input">
-      <input type="text" id="terminalInput" placeholder="e.g. deploy system core"/>
-      <button onclick="sendDirective()">Execute</button>
-    </div>
-  </section>
-
-  <footer>
-    © 2025 Atlas Industries · Overseer.exe · SystemLink v1.0 · Sovereign Runtime Online
-  </footer>
-  <script src="assets/js/widget.min.js" defer></script>
+    <script src="assets/js/widget.min.js" defer></script>
   <script>
     function sendDirective() {
       const input = document.getElementById('terminalInput');
@@ -180,21 +212,47 @@
         `<div><strong>🧍 You:</strong> ${cmd}</div>`);
       setTimeout(() => {
         log.insertAdjacentHTML('beforeend',
-          `<div><strong>🧠 Atlas:</strong> Executing '${cmd}' — Runtime confirmed.</div>`);
+          `<div><strong>🧠 Atlas:</strong> Executing '${cmd}' — Runtime confirmed.<span class="cursor"></span></div>`);
         log.scrollTop = log.scrollHeight;
       }, 400);
       input.value = '';
     }
 
+    const suggestions = ['deploy core','status','update'];
+    function renderSuggestions() {
+      const box = document.querySelector('.terminal-input');
+      let list = document.getElementById('suggestions');
+      if (!list) {
+        list = document.createElement('div');
+        list.id = 'suggestions';
+        list.style = 'color: var(--fg-muted); font-size: .9rem; margin-top: .5rem;';
+        box.parentNode.insertBefore(list, box.nextSibling);
+      }
+      list.innerHTML = suggestions.map(s => `<button onclick="fillCmd('${s}')" class="btn" style="padding:.2rem .6rem; margin-right:.5rem; font-size:.85rem;">${s}</button>`).join('');
+    }
+    function fillCmd(cmd) {
+      document.getElementById('terminalInput').value = cmd;
+      document.getElementById('terminalInput').focus();
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
-      // Initialize widget
       Widget.init({
         containerId: "widget-container",
         theme: "dark",
         apiKey: window.NEXT_PUBLIC_WIDGET_API_KEY
       });
 
-      // Auto-focus terminal after returning to #demo
+      renderSuggestions();
+
+      const dash = document.getElementById('dashboard'),
+            demo = document.getElementById('demo');
+      dash.style.transform = 'translateX(-100vw)';
+      demo.style.transform = 'translateX(100vw)';
+      dash.style.transition = demo.style.transition = 'transform .6s ease';
+      setTimeout(() => {
+        dash.style.transform = demo.style.transform = 'translateX(0)';
+      }, 200);
+
       if (window.location.hash === "#demo") {
         setTimeout(() => document.getElementById("terminalInput").focus(), 300);
       }
