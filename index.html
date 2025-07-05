@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Atlas OS is the sovereign AI-native operating system for runtime automation, execution, and control." />
-  <meta name="theme-color" content="#000000" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Atlas OS is the sovereign AI-native operating system for runtime automation, execution, and control."/>
+  <meta name="theme-color" content="#000000"/>
   <title>Atlas OS — Sovereign Command Engine</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/widget.min.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/widget.min.css"/>
+
   <style>
     :root {
       --accent: #0ff;
@@ -62,6 +64,13 @@
       border: 2px solid var(--accent);
       border-radius: 14px;
       padding: 2rem;
+      transition: transform 0.2s ease;
+    }
+    .card:hover { transform: translateY(-6px); }
+    #widget-container {
+      width: 90%; max-width: 800px; height: 400px;
+      margin: 4rem auto; border-radius: 8px;
+      overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.5);
     }
     .terminal {
       max-width: 1000px;
@@ -81,6 +90,29 @@
       color: #b4f3ff;
       margin-bottom: 1rem;
     }
+    .terminal-input {
+      display: flex; gap: 1rem;
+    }
+    .terminal-input input {
+      flex: 1;
+      background: #162029;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      padding: 0.8rem;
+      font-size: 1rem;
+    }
+    .terminal-input button {
+      background: var(--accent);
+      border: none;
+      border-radius: 6px;
+      padding: 0.8rem 1.4rem;
+      color: #000;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .terminal-input button:hover { transform: scale(1.03); }
     footer {
       padding: 3rem 1rem;
       font-size: 0.9rem;
@@ -102,16 +134,26 @@
       <a href="#demo" class="btn">Enter Demo</a>
     </div>
     <div class="card">
-      <h3>⚡ Core — $29/mo</h3>
-      <p>Full runtime shell with enhanced execution commands — built for solo engineers.</p>
-      <button id="checkout-core" class="btn">Activate Core</button>
+      <h3>⭐ Starter — $9/mo</h3>
+      <p>Basic runtime commands and core automation.</p>
+      <a href="https://buy.stripe.com/8x29ALfC5dYx6Om86O4Rq03" class="btn" target="_blank">Activate Starter</a>
     </div>
     <div class="card">
-      <h3>🚀 Sovereign — $99/mo</h3>
-      <p>Complete AI interface with memory, monetization hooks, and SystemLink control.</p>
-      <button id="checkout-sovereign" class="btn">Activate Sovereign</button>
+      <h3>⚡ Pro — $29/mo</h3>
+      <p>Expanded command set, priority support, collaboration tools.</p>
+      <a href="https://buy.stripe.com/fZu7sDfC5f2B6Om2Mu4Rq01" class="btn" target="_blank">Activate Pro</a>
+    </div>
+    <div class="card">
+      <h3>🚀 Elite — $99/mo</h3>
+      <p>Full AI interface with memory, monetization hooks, and SystemLink control.</p>
+      <a href="https://buy.stripe.com/9B6bITahLg6Fb4Ccn44Rq02" class="btn" target="_blank">Activate Elite</a>
     </div>
   </div>
+
+  <section id="dashboard">
+    <h2>📊 Live System Dashboard</h2>
+    <div id="widget-container"></div>
+  </section>
 
   <section id="demo" class="terminal">
     <h2>💬 Atlas Protocol Terminal</h2>
@@ -119,7 +161,7 @@
       <div><strong>🧠 Atlas:</strong> Sovereign runtime active. Awaiting directives...</div>
     </div>
     <div class="terminal-input">
-      <input type="text" id="terminalInput" placeholder="e.g. deploy system core" />
+      <input type="text" id="terminalInput" placeholder="e.g. deploy system core"/>
       <button onclick="sendDirective()">Execute</button>
     </div>
   </section>
@@ -127,45 +169,35 @@
   <footer>
     © 2025 Atlas Industries · Overseer.exe · SystemLink v1.0 · Sovereign Runtime Online
   </footer>
-  <script src="https://js.stripe.com/v3/"></script>
   <script src="assets/js/widget.min.js" defer></script>
   <script>
     function sendDirective() {
       const input = document.getElementById('terminalInput');
-      const log = document.getElementById('terminalLog');
-      const cmd = input.value.trim();
+      const log   = document.getElementById('terminalLog');
+      const cmd   = input.value.trim();
       if (!cmd) return;
-      log.insertAdjacentHTML('beforeend', `<div><strong>🧍 You:</strong> ${cmd}</div>`);
+      log.insertAdjacentHTML('beforeend',
+        `<div><strong>🧍 You:</strong> ${cmd}</div>`);
       setTimeout(() => {
-        log.insertAdjacentHTML('beforeend', `<div><strong>🧠 Atlas:</strong> Executing '${cmd}' — Runtime confirmed.</div>`);
+        log.insertAdjacentHTML('beforeend',
+          `<div><strong>🧠 Atlas:</strong> Executing '${cmd}' — Runtime confirmed.</div>`);
         log.scrollTop = log.scrollHeight;
       }, 400);
       input.value = '';
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
-      const stripe = Stripe(window.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
-      document.getElementById("checkout-core").addEventListener("click", () => {
-        stripe.redirectToCheckout({
-          lineItems: [{ price: window.NEXT_PUBLIC_CORE_PRICE_ID, quantity: 1 }],
-          mode: 'subscription',
-          successUrl: window.NEXT_PUBLIC_SUCCESS_URL,
-          cancelUrl: window.NEXT_PUBLIC_CANCEL_URL
-        });
-      });
-      document.getElementById("checkout-sovereign").addEventListener("click", () => {
-        stripe.redirectToCheckout({
-          lineItems: [{ price: window.NEXT_PUBLIC_SOVEREIGN_PRICE_ID, quantity: 1 }],
-          mode: 'subscription',
-          successUrl: window.NEXT_PUBLIC_SUCCESS_URL,
-          cancelUrl: window.NEXT_PUBLIC_CANCEL_URL
-        });
-      });
+    document.addEventListener("DOMContentLoaded", () => {
+      // Initialize widget
       Widget.init({
         containerId: "widget-container",
         theme: "dark",
         apiKey: window.NEXT_PUBLIC_WIDGET_API_KEY
       });
+
+      // Auto-focus terminal after returning to #demo
+      if (window.location.hash === "#demo") {
+        setTimeout(() => document.getElementById("terminalInput").focus(), 300);
+      }
     });
   </script>
 </body>
