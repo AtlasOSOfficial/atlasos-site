@@ -1,5 +1,7 @@
 {
-  "output": "static",
+  "version": 2,
+  "buildCommand": "vite build",
+  "outputDirectory": "dist",
   "routes": [
     { "src": "/starter", "dest": "/index.html?plan=starter" },
     { "src": "/pro",     "dest": "/index.html?plan=pro"     },

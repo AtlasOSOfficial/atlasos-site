@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Atlas OS — Sovereign Runtime</title>
+  <meta name="description" content="Automate commands. Execute directives. Scale infinitely."/>
+  <style>
+    :root {
+      --bg:#0d1117;--fg:#f0f6fc;--muted:#6c8e99;--accent:#0ff;
+      --radius:6px;--ease:.3s;--font:'Space Grotesk',sans-serif;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--bg);color:var(--fg);
+      font:100% var(--font);text-align:center;line-height:1.5;
+      padding:4rem 1rem;overflow-x:hidden;}
+    a,button{font:inherit;cursor:pointer;text-decoration:none}
+    .btn{background:var(--accent);color:#000;border:none;
+      border-radius:var(--radius);padding:.8rem 1.6rem;
+      transition:transform var(--ease)}
+    .btn:hover{transform:scale(1.05)}
+    h1{font-size:2.5rem;color:var(--accent);margin-bottom:.5rem}
+    p{color:var(--muted);max-width:600px;margin:0 auto 1.5rem}
+    .tiers{display:grid;gap:1.5rem;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      max-width:1000px;margin:2rem auto}
+    .card{background:#08111a;border:2px solid var(--accent);
+      border-radius:var(--radius);padding:1.5rem;
+      transition:transform var(--ease)}
+    .card:hover{transform:translateY(-4px)}
+    .card h3{color:var(--accent);margin-bottom:.5rem;font-size:1.1rem}
+    .card p{color:var(--muted);margin-bottom:1rem;font-size:.9rem}
+    #widget-container{width:90%;max-width:700px;height:300px;
+      margin:2rem auto;border-radius:var(--radius);
+      overflow:hidden;box-shadow:0 0 15px rgba(0,255,255,.2)}
+    .terminal{max-width:800px;margin:2rem auto 4rem;
+      background:#08111a;border:2px solid var(--accent);
+      border-radius:var(--radius);padding:1rem;}
+    .terminal-log{height:200px;background:#00070f;
+      padding:.5rem;overflow-y:auto;font-family:monospace;
+      color:#b4f3ff;border-radius:var(--radius);
+      margin-bottom:.5rem;font-size:.85rem}
+    .terminal-input{display:flex;gap:.5rem}
+    .terminal-input input{flex:1;
+      background:#162029;border:none;border-radius:4px;
+      color:#fff;padding:.5rem;font-size:.9rem}
+    .terminal-input button{background:var(--accent);
+      border:none;border-radius:4px;padding:.5rem 1rem;
+      font-weight:700}
+    .cursor{display:inline-block;width:1ch;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Atlas OS — Cosmic Sovereign Runtime</title>
+  <meta name="description" content="Atlas OS — Automate commands. Execute directives. Scale infinitely, across universes."/>
+  <style>
+    /* Root Variables */
+    :root {
+      --bg-start: #000010;
+      --bg-end:   #0d1117;
+      --star:     rgba(255,255,255,0.1);
+      --fg:       #f0f6fc;
+      --muted:    #6c8e99;
+      --accent:   #0ff;
+      --glow:     #0ff3;
+      --radius:   8px;
+      --ease:     .3s ease;
+      --font:     'Space Grotesk', sans-serif;
+    }
+    /* Base Reset */
+    * { margin:0; padding:0; box-sizing:border-box }
+    body {
+      min-height:100vh;
+      background: radial-gradient(circle at bottom, var(--bg-start), var(--bg-end));
+      background-attachment: fixed;
+      color: var(--fg);
+      font-family: var(--font);
+      text-align: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+    a, button { font: inherit; cursor: pointer; text-decoration: none; }
+
+    /* Parallax Stars */
+    body::before {
+      content:""; position: absolute; inset:0;
+      background: url('data:image/svg+xml;utf8,\
+      <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400">\
+      <circle cx="200" cy="200" r="0.5" fill="white"/></svg>') repeat;
+      opacity: .2; animation: drift 60s linear infinite;
+    }
+    @keyframes drift {
+      from { transform: translate(0,0); }
+      to { transform: translate(-200px,200px); }
+    }
+
+    /* Header / Hero */
+    header {
+      padding: 6rem 1rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    header h1 {
+      font-size: 3rem; color: var(--accent);
+      text-shadow: 0 0 20px var(--glow);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 8px var(--glow); }
+      to   { text-shadow: 0 0 20px var(--glow); }
+    }
+    header p {
+      max-width: 600px; margin: 1rem auto;
+      color: var(--muted); font-size: 1.1rem;
+    }
+    .hero-btn {
+      background: var(--accent); color: #000;
+      padding: .8rem 1.6rem; border-radius: var(--radius);
+      transition: transform var(--ease);
+      position: relative; overflow: hidden;
+    }
+    .hero-btn:hover { transform: scale(1.05) }
+    .hero-btn::after {
+      content:""; position:absolute; top:50%; left:50%;
+      width:0; height:0; background: rgba(0,0,0,0.1);
+      border-radius:50%; transform: translate(-50%,-50%);
+      transition: width .4s ease, height .4s ease;
+    }
+    .hero-btn:active::after { width:200%; height:200%; transition:0s }
+
+    /* Sections */
+    .section {
+      padding: 3rem 1rem;
+      max-width: 1200px; margin: 0 auto;
+    }
+    h2 {
+      font-size: 2rem; color: var(--accent);
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 8px var(--glow);
+    }
+
+    /* Pricing Tiers */
+    .tiers {
+      display: grid; gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+    }
+    .card {
+      background: #08111a; border: 2px solid var(--accent);
+      border-radius: var(--radius); padding: 1.5rem;
+      transition: transform var(--ease), box-shadow var(--ease);
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px var(--glow);
+    }
+    .card h3 {
+      color: var(--accent); margin-bottom: .5rem;
+    }
+    .card p {
+      color: var(--muted); margin-bottom: 1rem;
+    }
+    .card .btn {
+      background: transparent; color: var(--accent);
+      border: 2px solid var(--accent); padding: .5rem 1rem;
+      border-radius: var(--radius); transition: background var(--ease), color var(--ease);
+    }
+    .card .btn:hover {
+      background: var(--accent); color: #000;
+    }
+
+    /* Dashboard Widget */
+    #widget-container {
+      height: 300px; border-radius: var(--radius);
+      overflow: hidden; box-shadow: 0 0 15px rgba(0,255,255,.2);
+      margin-bottom: 2rem;
+    }
+
+    /* Terminal */
+    .terminal {
+      background: #08111a; border: 2px solid var(--accent);
+      border-radius: var(--radius); padding: 1rem;
+      max-width: 800px; margin: 2rem auto;
+    }
+    .terminal-log {
+      height: 200px; background: #00070f;
+      border-radius: var(--radius); padding: .5rem;
+      font-family: monospace; color: #b4f3ff;
+      overflow-y: auto; margin-bottom: .5rem;
+      font-size: .85rem;
+    }
+    .terminal-input {
+      display: flex; gap: .5rem;
+    }
+    .terminal-input input {
+      flex: 1; background: #162029; border: none;
+      border-radius: 4px; color: #fff; padding: .5rem;
+      font-size: .9rem;
+    }
+    .terminal-input button {
+      background: var(--accent); border: none;
+      border-radius: 4px; padding: .5rem 1rem;
+      transition: transform var(--ease);
+    }
+    .terminal-input button:hover { transform: scale(1.05) }
+    .cursor {
+      display: inline-block; width: 1ch; background: var(--fg);
+      animation: blink .8s step-end infinite; margin-left: .2rem;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* Footer */
+    footer {
+      padding: 2rem 1rem; font-size: .8rem;
+      color: var(--muted); border-top: 1px solid rgba(255,255,255,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header>
+    <h1>🧬 Atlas OS — Cosmic Sovereign Runtime</h1>
+    <p>Automate commands. Execute directives. Scale infinitely, across universes.</p>
+    <button class="hero-btn" onclick="location.hash='#demo'">Launch Free Demo</button>
+  </header>
+
+  <!-- Pricing Section -->
+  <section class="section" id="pricing">
+    <h2>Choose Your Ascent</h2>
+    <div class="tiers">
+      <div class="card">
+        <h3>🆓 Free Mode</h3>
+        <p>Core shell—no signup required.</p>
+        <button class="btn" onclick="location.hash='#demo'">Enter Demo</button>
+      </div>
+      <div class="card">
+        <h3>⭐ Starter — $9/mo</h3>
+        <p>Core commands & snapshots.</p>
+        <a id="btn-starter" class="btn" target="_blank" rel="noopener">Activate Starter</a>
+      </div>
+      <div class="card">
+        <h3>⚡ Pro — $29/mo</h3>
+        <p>Team workspaces & priority support.</p>
+        <a id="btn-pro" class="btn" target="_blank" rel="noopener">Activate Pro</a>
+      </div>
+      <div class="card">
+        <h3>🚀 Elite — $99/mo</h3>
+        <p>AI agent, SystemLink, full autonomy.</p>
+        <a id="btn-elite" class="btn" target="_blank" rel="noopener">Activate Elite</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Dashboard -->
+  <section class="section">
+    <h2>📊 Live System Dashboard</h2>
+    <div id="widget-container"></div>
+  </section>
+
+  <!-- Terminal Demo -->
+  <section class="section" id="demo">
+    <h2>💬 Atlas Protocol Terminal</h2>
+    <div class="terminal">
+      <div class="terminal-log" id="terminalLog">
+        <div><strong>🧠 Atlas:</strong> Sovereign runtime active. Awaiting directives…</div>
+      </div>
+      <div class="terminal-input">
+        <input id="terminalInput" placeholder="e.g. status" autocomplete="off"/>
+        <button onclick="sendDirective()">Execute</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 Atlas Industries · Overseer.exe · SystemLink v1.0 · Cosmic Scale Online
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/widget.min.js" defer></script>
+  <script>
+    // Environment & endpoints
+    const ENV = window.NEXT_PUBLIC_ENV;
+    const API = window.NEXT_PUBLIC_API_ENDPOINT;
+    const WKEY = window.NEXT_PUBLIC_WIDGET_API_KEY;
+    const LINKS = {
+      starter: window.NEXT_PUBLIC_STRIPE_STARTER,
+      pro:     window.NEXT_PUBLIC_STRIPE_PRO,
+      elite:   window.NEXT_PUBLIC_STRIPE_ELITE
+    };
+    // Inject Stripe URLs
+    document.getElementById('btn-starter').href = LINKS.starter;
+    document.getElementById('btn-pro').href     = LINKS.pro;
+    document.getElementById('btn-elite').href   = LINKS.elite;
+
+    // Init Dashboard
+    window.addEventListener('DOMContentLoaded', () => {
+      Widget.init({ containerId: 'widget-container', theme: 'dark', apiKey: WKEY });
+    });
+
+    // Terminal logic
+    async function sendDirective() {
+      const inp = document.getElementById('terminalInput'),
+            log = document.getElementById('terminalLog'),
+            cmd = inp.value.trim();
+      if (!cmd) return;
+      log.insertAdjacentHTML('beforeend', `<div><strong>🧍 You:</strong> ${cmd}</div>`);
+      const loader = document.createElement('div'); loader.textContent = '🕒 Executing…';
+      log.appendChild(loader); log.scrollTop = log.scrollHeight;
+      try {
+        let res = await fetch(API, {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ command: cmd })
+        });
+        if (res.status === 405) {
+          res = await fetch(`${API}?command=${encodeURIComponent(cmd)}`);
+        }
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json(); loader.remove();
+        const out = data.output || JSON.stringify(data);
+        log.insertAdjacentHTML('beforeend',
+          `<div><strong>🧠 Atlas:</strong> ${out}<span class="cursor"></span></div>`);
+      } catch(err) {
+        loader.remove();
+        log.insertAdjacentHTML('beforeend',
+          `<div><strong>⚠️ Error:</strong> ${err.message}</div>`);
+      }
+      log.scrollTop = log.scrollHeight; inp.value = '';
+    }
+  </script>
+</body>
+</html>
+
