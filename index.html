@@ -1,10 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>AtlasOS • Sovereign Execution Engine</title>
-  <link rel="stylesheet" href="/style.css" />
+  <style>
+    :root {
+      --bg:#0e0e0e;--alt:#1a1a1a;--fg:#e8e8e8;--sub:#aaa;
+      --accent:#00fff2;--accent2:#00c0aa;--bd:#222;
+      --sh:rgba(0,255,242,0.15);--tbg:#000;--tfg:#0f0;
+    }
+    *,*:before,*:after{box-sizing:border-box;margin:0;padding:0}
+    body{
+      background:var(--bg);color:var(--fg);
+      font-family:'Segoe UI','Roboto','Fira Code',monospace;
+      line-height:1.6;scroll-behavior:smooth;
+      padding:0 1rem;
+    }
+    a{color:var(--accent);text-decoration:none}
+    a:hover{color:var(--accent2)}
+    header{
+      background:linear-gradient(270deg,var(--alt),var(--bg));
+      padding:2rem 0;text-align:center;
+      border-bottom:1px solid var(--bd);
+      animation:slidebg 4s infinite alternate;
+    }
+    @keyframes slidebg{
+      from{background-position:0 0}
+      to{background-position:100% 0}
+    }
+    header h1{
+      font-size:2.8rem;color:var(--accent);
+      text-shadow:0 0 8px var(--accent);
+      margin-bottom:.5rem;
+    }
+    header p{color:var(--sub);margin-bottom:1rem}
+    nav a{
+      margin:0 .75rem;font-weight:600;position:relative;padding:0.25rem;
+    }
+    nav a::after{
+      content:'';position:absolute;bottom:-4px;left:0;
+      width:0;height:2px;background:var(--accent);
+      transition:width .3s ease;
+    }
+    nav a:hover::after{width:100%}
+
+    section{max-width:960px;margin:3rem auto;padding:0 1rem}
+    section h2{
+      font-size:2rem;color:var(--accent);
+      border-left:4px solid var(--accent);
+      padding-left:.5rem;margin-bottom:1rem;
+    }
+
+    #launch p{margin-bottom:1rem}
+    #launch button{
+      background:var(--accent);color:var(--bg);
+      border:none;padding:.8rem 1.6rem;border-radius:4px;
+      cursor:pointer;transition:transform .2s;
+    }
+    #launch button:active{transform:scale(.95)}
+
+    .plan-grid{display:flex;flex-wrap:wrap;gap:2rem;justify-content:center}
+    .plan{
+      background:var(--alt);border:1px solid var(--bd);
+      border-radius:8px;box-shadow:0 4px 16px var(--sh);
+      width:280px;padding:2rem 1.5rem;
+      overflow:hidden;position:relative;
+    }
+    .plan::before{
+      content:'';position:absolute;top:0;left:0;width:100%;height:100%;
+      background:radial-gradient(circle at center, var(--accent2) 0%,transparent 70%);
+      opacity:0;transition:opacity .4s;
+    }
+    .plan:hover::before{opacity:.1}
+    .plan h3{font-size:1.5rem;color:var(--fg);margin-bottom:.5rem}
+    .plan p{color:var(--sub);margin:1rem 0 1.5rem;line-height:1.4}
+    .plan button{
+      background:var(--accent);color:var(--bg);border:none;
+      width:100%;padding:.6rem 1.2rem;font-weight:600;
+      border-radius:4px;cursor:pointer;transition:background .3s;
+    }
+    .plan button:hover{background:var(--accent2)}
+
+    #console input{
+      width:calc(100% - 120px);padding:.6rem;
+      background:var(--alt);border:1px solid var(--bd);
+      color:var(--fg);border-radius:4px 0 0 4px;
+    }
+    #console button{
+      width:100px;background:var(--accent);color:var(--bg);
+      border:none;padding:.6rem;font-weight:600;
+      border-radius:0 4px 4px 0;cursor:pointer;
+      transition:background .3s;
+    }
+    #console button:hover{background:var(--accent2)}
+    #console pre{
+      background:var(--tbg);color:var(--tfg);padding:1rem;
+      border-radius:6px;font-family:'Fira Code',monospace;
+      margin-top:1rem;overflow-x:auto;box-shadow:0 0 12px var(--accent);
+    }
+
+    #checkout form{
+      display:flex;flex-wrap:wrap;gap:1rem;align-items:center;
+    }
+    #checkout input,#checkout select{
+      padding:.6rem;background:var(--alt);
+      border:1px solid var(--bd);color:var(--fg);
+      border-radius:4px;flex:1;min-width:120px;
+    }
+    #checkout button{
+      background:var(--accent);color:var(--bg);
+      border:none;padding:.6rem 1.2rem;
+      font-weight:600;border-radius:4px;cursor:pointer;
+      transition:background .3s;
+    }
+    #checkout button:hover{background:var(--accent2)}
+    #checkout p{margin-top:1rem;color:var(--sub)}
+
+    #docs a{
+      display:inline-block;margin-top:.5rem;
+      background:var(--alt);padding:.6rem 1rem;
+      border:1px solid var(--bd);border-radius:4px;
+      transition:background .3s,color .3s;
+    }
+    #docs a:hover{background:var(--accent);color:var(--bg)}
+
+    footer{
+      text-align:center;padding:2rem 0;
+      border-top:1px solid var(--bd);
+      color:var(--sub);font-size:.9rem;
+    }
+
+    @media(max-width:600px){
+      .plan-grid{flex-direction:column;align-items:center}
+      nav a{display:block;margin:.5rem 0}
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -22,9 +153,7 @@
   <section id="launch">
     <h2>🚀 Sovereign Hard Launch</h2>
     <p>Runtime validated. Vault memory synced. AtlasOS is live.</p>
-    <button onclick="runCommand('atlas launch --confirm --push-live')">
-      Trigger Launch
-    </button>
+    <button onclick="runCommand('atlas launch --confirm --push-live')">Trigger Launch</button>
   </section>
 
   <section id="plans">
@@ -50,7 +179,7 @@
 
   <section id="console">
     <h2>🧩 Reflex Console</h2>
-    <input id="commandInput" placeholder="Enter AtlasOS command…" />
+    <input id="commandInput" placeholder="Enter AtlasOS command…"/>
     <button onclick="executeCommand()">Run</button>
     <pre id="commandOutput">Shell ready. Vault synced.</pre>
   </section>
@@ -58,7 +187,7 @@
   <section id="checkout">
     <h2>💳 Monetize Runtime</h2>
     <form id="paymentForm">
-      <input type="email" placeholder="Email address" required />
+      <input type="email" placeholder="Email address" required/>
       <select name="plan">
         <option value="starter">Starter — $9</option>
         <option value="pro">Pro — $29</option>
@@ -78,7 +207,34 @@
     <p>© 2025 AtlasOS • Vault Synced • Runtime Integrity 100%</p>
   </footer>
 
-  <script type="module" src="/main.js"></script>
+  <script>
+    const TIER={starter:9,pro:29,elite:99};
+    let plan='starter';
+    function runCommand(c){
+      const o=document.getElementById('commandOutput');
+      o.textContent=`Running: ${c}...`;
+      setTimeout(()=>o.textContent=`✅ ${c} done.`,1200);
+    }
+    function executeCommand(){
+      const c=document.getElementById('commandInput').value.trim();
+      if(!c)return;
+      if(c.startsWith('atlas snapshot')&&plan==='starter'){
+        return alert('🔐 Snapshot needs Pro or Elite');
+      }
+      if(c.includes('--vault')&&plan!=='elite'){
+        return alert('🔓 Vault memory is Elite-only');
+      }
+      runCommand(c);
+    }
+    function routeToCheckout(p){
+      plan=p;window.location.href=`?plan=${p}`;
+    }
+    document.querySelector('#paymentForm').onsubmit=e=>{
+      e.preventDefault();
+      const p=e.target.plan.value;plan=p;
+      alert(`Redirecting to payment: $${TIER[p]}/mo (${p.toUpperCase()})`);
+    };
+  </script>
 </body>
 </html>
 
