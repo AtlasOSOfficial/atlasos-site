@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Atlas OS — Launch Protocol</title>
-    
-    <script type="module" crossorigin src="/assets/index-2bd90ebc.js"></script>
-    <link rel="stylesheet" href="/assets/index-4c3dba63.css">
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Atlas OS Is Live</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="icon" href="assets/favicon.ico">
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <header class="hero">
     <h1>🌐 Atlas OS Is Live</h1>
     <p>Welcome to the sovereign execution layer of Overseer.exe</p>
-    <a href="https://buy.stripe.com/xyz" style="color:#00ffe0;text-decoration:underline;">Buy Access</a>
-    
-  </body>
+    <a id="buy-button" class="btn buy">Buy Access</a>
+  </header>
+  <footer class="site-footer">
+    <p>© 2025 Atlas Industries · Overseer.exe · SystemLink v1.0 · Sovereign Runtime Online</p>
+  </footer>
+  <script>
+    const stripe = Stripe('pk_live_YOUR_PUBLISHABLE_KEY');
+    document.getElementById('buy-button').addEventListener('click', () => {
+      fetch('/api/create-checkout-session', { method: 'POST' })
+        .then(res => res.json())
+        .then(session => stripe.redirectToCheckout({ sessionId: session.id }));
+    });
+  </script>
+</body>
 </html>
